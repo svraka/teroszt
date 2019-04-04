@@ -1,0 +1,20 @@
+#' @importFrom tibble tibble
+NULL
+
+#' A területi számjelrendszer (TSZJ) 2018-as kiadása
+#'
+#' Ez a tábla a KSH területi számjelrendszerének (TSZJ) 2018-as kiadását
+#' tartalmazza.
+#'
+#' @format Egy data frame 3200 sorral, amely minden településazonosító
+#'   törzsszámmal rendelkező településről tartalmazza a területi számjelrendszer
+#'   kategóriái szerinti besorolását a kategóriák kódjával, és a fontosabb
+#'   csoportosításokról a kategóriák megnevezésével.  A változók tartalmának
+#'   részletes leírása és a megnevezés nélküli kategóriák nevei megtalálhatóak a
+#'   KSH módszertani dokumentációjában.
+#'
+#' @source A jelen tartalom a Központi Statisztikai Hivatal területi
+#'   számjelrendszere (\url{http://www.ksh.hu/teruleti_szamjel_menu}) 2018-as
+#'   kiadásának felhasználásával készült. A csomagban foglaltak kizárólag Svraka
+#'   András, mint szerző szellemi termékei.  A letöltés dátuma 2019. április 4.
+"tsz_2018"
