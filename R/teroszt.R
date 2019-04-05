@@ -18,3 +18,63 @@ NULL
 #'   kiadásának felhasználásával készült. A csomagban foglaltak kizárólag Svraka
 #'   András, mint szerző szellemi termékei.  A letöltés dátuma 2019. április 4.
 "tsz_2018"
+
+#' Településrészek a Helységnévtár 2018-as kiadásából
+#'
+#' Ez a tábla a KSH Helységnévtárának 2018-as kiadásából tartalmazza a
+#' településrészeket.
+#'
+#' @format Egy data frame 13 558 sorral, amely a Helységnévtárban szereplő
+#' összes település településrészével az alábbi változókkal:
+#'
+#' \describe{
+#'   \item{torzsszam}{A település KSH-s településazonosító törzsszáma}
+#'   \item{telepules}{Település neve}
+#'   \item{telepulesresz}{Településrész neve}
+#'   \item{telepulesresz_jelleg}{Településrész jellege (központi belterület,
+#'     belterület, külterület)}
+#'   \item{irsz}{Irányítószám (nem teljes körű, hiányoznak az utcajegyzék
+#'     alapján meghatározott irányítószámok)}
+#'   \item{kulterulet_jellege}{Külterület jellege a KSH módszertana szerint}
+#'   \item{telepulesresz_tavolsaga_kozponti_belterulettol}{A településrész
+#'     távolsága a központi belterülettől (km)}
+#'   \item{nepszamlalasi_lakonepesseg}{A népszámlálási lakónépesség (fő)}
+#'   \item{lakasok_szama}{A lakások száma (db)}
+#'   \item{lakott_egyeb_lakoegysegek_szama}{Lakott egyéb lakóegységek száma
+#'     (db)}
+#' }
+#'
+#' @source
+#' A jelen tartalom a Központi Statisztikai Hivatal Helységnévtára
+#' (\url{http://www.ksh.hu/apps/hntr.main}) 2018-as kiadásának felhasználásával
+#' készült. A csomagban foglaltak kizárólag Svraka András, mint szerző szellemi
+#' termékei.  A letöltés dátuma 2019. április 5.
+"hnt_telepulesreszek_2018"
+
+#' Irányítószámok és települések (2018)
+#'
+#' A Magyar Posta nyilvántartása szerinti összes irányítószám, a kapcsolódó
+#' település neve a KSH helységnévtárából hozzákapcsolva a településazonosító
+#' törzsszámokat.
+#'
+#' @format
+#' Egy data frame 3859 sorral, amely minden, a Helységnévtárban és a Posta
+#' nyilvántartásában szereplő irányítószámhoz megadja a települést.
+#'
+#' \describe{
+#'   \item{torzsszam}{A település KSH-s településazonosító törzsszáma}
+#'   \item{telepules}{Település neve}
+#'   \item{irsz}{Irányítószám}
+#' }
+#'
+#' @source
+#' A jelen tartalom a Központi Statisztikai Hivatal Helységnévtára
+#' (\url{http://www.ksh.hu/apps/hntr.main}) 2018-as kiadásának felhasználásával
+#' készült. A csomagban foglaltak kizárólag Svraka András, mint szerző szellemi
+#' termékei.  A letöltés dátuma 2019. április 4.
+#'
+#' Az irányószámok forrása a Magyar Posta Zrt. honlapján közzétett
+#' "Magyarországi postai irányítószámok"
+#' (\url{https://www.posta.hu/szolgaltatasok/iranyitoszam-kereso}). A letöltés
+#' dátuma 2019. április 5.
+"irsz_2018"

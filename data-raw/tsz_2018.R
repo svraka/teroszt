@@ -6,13 +6,17 @@ library(asmisc)
 
 # Fo tabla
 
-tsz_2018 <- read_excel("data-raw/teruleti_szamjelrendszer_struktura_elemei_2018.xlsx") %>%
+tsz_2018 <- read_excel(
+    path = "data-raw/teruleti_szamjelrendszer_struktura_elemei_2018.xlsx"
+  ) %>%
   clean_names
 
 
 # Segedtabla a fontosabb besorolasok megnevezesivel
 
-tsz_2018_megnevezessel <- read_excel("data-raw/teruleti_szamjelrendszer_struktura_elemei_2018_megnevezesekkel.xlsx") %>%
+tsz_2018_megnevezessel <- read_excel(
+    path = "data-raw/teruleti_szamjelrendszer_struktura_elemei_2018_megnevezesekkel.xlsx"
+  ) %>%
   clean_names %>%
   # Egyseges elnevezes
   rename(
@@ -38,7 +42,7 @@ tsz_2018 <- tsz_2018 %>%
   ) %>%
   rename(
     torzsszam = telepules_azonosito_torzsszam,
-    telepules_nev = nev,
+    telepules = nev,
     megye = teruleti_jelzoszambol_kepzett_megyekod,
     megye_nev = megyenev,
     jogallas_2005_nev = jogallas_2005_megnevezese,
