@@ -1,4 +1,4 @@
-# teroszt – Magyarországon használt területi osztályozások adattáblái [![Travis build status](https://travis-ci.org/svraka/teroszt.svg?branch=master)](https://travis-ci.org/svraka/teroszt) [![CRAN](http://www.r-pkg.org/badges/version/teroszt)](https://cran.r-project.org/package=teroszt)
+# teroszt – Magyarországon használt területi osztályozások adattáblái [![Travis build status](https://travis-ci.com/svraka/teroszt.svg?branch=master)](https://travis-ci.com /svraka/teroszt) [![CRAN](http://www.r-pkg.org/badges/version/teroszt)](https://cran.r-project.org/package=teroszt)
 
 Ez az R csomag a KSH [Területi számjelrendszerének](http://www.ksh.hu/teruleti_szamjel_menu), [Helységnévtárának](http://www.ksh.hu/apps/hntr.main) és a postai irányítószámok KSH-s településazonosítókhoz kapcsolt tábláit tartalmazza.
 
