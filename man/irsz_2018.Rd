@@ -15,12 +15,12 @@ nyilvántartásában szereplő irányítószámhoz megadja a települést.
 \source{
 A jelen tartalom a Központi Statisztikai Hivatal Helységnévtára
 (\url{http://www.ksh.hu/apps/hntr.main}) 2018-as kiadásának felhasználásával
-készült. A csomagban foglaltak kizárólag Svraka András, mint szerző szellemi
+készült.  A csomagban foglaltak kizárólag Svraka András, mint szerző szellemi
 termékei.  A letöltés dátuma 2019. április 4.
 
-Az irányószámok forrása a Magyar Posta Zrt. honlapján közzétett
-"Magyarországi postai irányítószámok"
-(\url{https://www.posta.hu/szolgaltatasok/iranyitoszam-kereso}). A letöltés
+Az irányítószámok forrása a Magyar Posta Zrt. honlapján közzétett
+\dQuote{Magyarországi postai irányítószámok}
+(\url{https://www.posta.hu/szolgaltatasok/iranyitoszam-kereso}).  A letöltés
 dátuma 2019. április 5.
 }
 \usage{

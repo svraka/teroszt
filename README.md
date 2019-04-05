@@ -6,7 +6,7 @@ Ez az R csomag a KSH [Területi számjelrendszerének](http://www.ksh.hu/terulet
 
 ## Telepítés
 
-A csomag legfrissebb változta Githubról telepíthető:
+A csomag legfrissebb változata Githubról telepíthető:
 
 ``` r
 # install.packages("devtools")

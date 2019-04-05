@@ -26,7 +26,7 @@
 \source{
 A jelen tartalom a Központi Statisztikai Hivatal Helységnévtára
 (\url{http://www.ksh.hu/apps/hntr.main}) 2018-as kiadásának felhasználásával
-készült. A csomagban foglaltak kizárólag Svraka András, mint szerző szellemi
+készült.  A csomagban foglaltak kizárólag Svraka András, mint szerző szellemi
 termékei.  A letöltés dátuma 2019. április 5.
 }
 \usage{

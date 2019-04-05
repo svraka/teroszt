@@ -6,17 +6,19 @@ NULL
 #' Ez a tábla a KSH területi számjelrendszerének (TSZJ) 2018-as kiadását
 #' tartalmazza.
 #'
-#' @format Egy data frame 3200 sorral, amely minden településazonosító
-#'   törzsszámmal rendelkező településről tartalmazza a területi számjelrendszer
-#'   kategóriái szerinti besorolását a kategóriák kódjával, és a fontosabb
-#'   csoportosításokról a kategóriák megnevezésével.  A változók tartalmának
-#'   részletes leírása és a megnevezés nélküli kategóriák nevei megtalálhatóak a
-#'   KSH módszertani dokumentációjában.
+#' @format
+#' Egy data frame 3200 sorral, amely minden településazonosító törzsszámmal
+#' rendelkező településről tartalmazza a területi számjelrendszerkategóriái
+#' szerinti besorolását a kategóriák kódjával, és a fontosabb csoportosításokról
+#' a kategóriák megnevezésével.  A változók tartalmának részletes leírása és a
+#' megnevezés nélküli kategóriák nevei megtalálhatóak a KSH módszertani
+#' dokumentációjában.
 #'
-#' @source A jelen tartalom a Központi Statisztikai Hivatal területi
-#'   számjelrendszere (\url{http://www.ksh.hu/teruleti_szamjel_menu}) 2018-as
-#'   kiadásának felhasználásával készült. A csomagban foglaltak kizárólag Svraka
-#'   András, mint szerző szellemi termékei.  A letöltés dátuma 2019. április 4.
+#' @source
+#' A jelen tartalom a Központi Statisztikai Hivatal területi számjelrendszere
+#' (\url{http://www.ksh.hu/teruleti_szamjel_menu}) 2018-as kiadásának
+#' felhasználásával készült.  A csomagban foglaltak kizárólag Svraka András,
+#' mint szerző szellemi termékei.  A letöltés dátuma 2019. április 4.
 "tsz_2018"
 
 #' Településrészek a Helységnévtár 2018-as kiadásából
@@ -47,7 +49,7 @@ NULL
 #' @source
 #' A jelen tartalom a Központi Statisztikai Hivatal Helységnévtára
 #' (\url{http://www.ksh.hu/apps/hntr.main}) 2018-as kiadásának felhasználásával
-#' készült. A csomagban foglaltak kizárólag Svraka András, mint szerző szellemi
+#' készült.  A csomagban foglaltak kizárólag Svraka András, mint szerző szellemi
 #' termékei.  A letöltés dátuma 2019. április 5.
 "hnt_telepulesreszek_2018"
 
@@ -70,11 +72,11 @@ NULL
 #' @source
 #' A jelen tartalom a Központi Statisztikai Hivatal Helységnévtára
 #' (\url{http://www.ksh.hu/apps/hntr.main}) 2018-as kiadásának felhasználásával
-#' készült. A csomagban foglaltak kizárólag Svraka András, mint szerző szellemi
+#' készült.  A csomagban foglaltak kizárólag Svraka András, mint szerző szellemi
 #' termékei.  A letöltés dátuma 2019. április 4.
 #'
-#' Az irányószámok forrása a Magyar Posta Zrt. honlapján közzétett
-#' "Magyarországi postai irányítószámok"
-#' (\url{https://www.posta.hu/szolgaltatasok/iranyitoszam-kereso}). A letöltés
+#' Az irányítószámok forrása a Magyar Posta Zrt. honlapján közzétett
+#' \dQuote{Magyarországi postai irányítószámok}
+#' (\url{https://www.posta.hu/szolgaltatasok/iranyitoszam-kereso}).  A letöltés
 #' dátuma 2019. április 5.
 "irsz_2018"
