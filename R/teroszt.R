@@ -80,3 +80,27 @@ NULL
 #' (\url{https://www.posta.hu/szolgaltatasok/iranyitoszam-kereso}).  A letöltés
 #' dátuma 2019. április 5.
 "irsz_2018"
+
+#' NAV igazgatósági kódok
+#'
+#' A Nemzeti Adó- és Vámhivatal által használt területi igazgatósági kódok és a
+#' hozzájuk kapcsolódó megye- és járáskódok a területi számrendszerből.  Ezek az
+#' igazgatósági kódok az adószám utolsó két számjegyei is.
+#'
+#' @format
+#' Egy data frame 199 sorral, amely minden járáshoz megadja az illetékes NAV
+#' igazgatóság kódját.  A 999-es, fiktív járáshoz lett sorolva a két kiemelt
+#' igazgatóság.
+#'
+#' \describe{
+#'   \item{nav_ig_nev}{Az igazgatóság neve}
+#'   \item{nav_ig_tarsas}{Igazgatóság kódja, társas adóalany esetén}
+#'   \item{nav_ig_egyeni}{Igazgatóság kódja, egyéni adóalany esetén}
+#'   \item{megye}{Megye kódja (ld. TSZJ)}
+#'   \item{jaras}{Járás kódja (ld. TSZJ)}
+#' }
+#'
+#' @source
+#' (\url{http://www.nav.gov.hu/nav/adatbazisok/adatbleker/afaalanyok/afaalany_taj.html}).
+#' A hozzáférés dátuma 2019. április 10.
+"nav_igazgatosagi_kodok"

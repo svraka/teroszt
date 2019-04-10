@@ -1,3 +1,8 @@
+# teroszt 0.2.0.9000
+
+* `nav_igazgatosagi_kodok`: A Nemzeti Adó- és Vámhivatal által használt területi igazgatósági kódok és a hozzájuk kapcsolódó megye- és járáskódok a területi számrendszerből.
+
+
 # teroszt 0.1.0: 2018-as adatok
 
 Első release, az alábbi táblákkal:
