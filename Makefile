@@ -16,5 +16,8 @@ data/hnt_telepulesreszek_2018.rda: data-raw/hnt_telepulesreszek_2018.R data-raw/
 data/irsz_2018.rda: data-raw/irsz_2018.R data-raw/iranyitoszam_2019-01-15.xlsx data-raw/hnt_2018.xls data/hnt_telepulesreszek_2018.rda
 	Rscript -e 'source("$<", encoding = "UTF-8")'
 
+data/nav_igazgatosagi_kodok.rda: data-raw/nav_igazgatosagi_kodok.R data-raw/nav_igazgatosagi_kodok.csv
+	Rscript -e 'source("$<", encoding = "UTF-8")'
+
 document:
 	Rscript -e 'devtools::document()'
