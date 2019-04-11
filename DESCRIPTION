@@ -15,7 +15,8 @@ Suggests:
     asmisc,
     dplyr,
     readxl,
-    tidyr
+    tidyr,
+    usethis
 Remotes:
     github::svraka/asmisc
 License: CC0
