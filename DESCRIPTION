@@ -4,9 +4,13 @@ Title: Magyarországon használt területi osztályozások adattáblái
 Version: 0.2.0.9000
 Authors@R: person("András", "Svraka", email = "svraka.andras@gmail.com",
     role = c("aut", "cre"))
-Description: Ez a csomag a KSH területi számjelrendszerének, Helységnévtárának,
-    a NAV igazgatósági kódoknak és a postai irányítószámok településazonosítóhoz
-    kapcsolt tábláit tartalmazza.
+Description: Ez az R csomag a KSH Területi számjelrendszerének
+    <http://www.ksh.hu/teruleti_szamjel_menu>,
+    Helységnévtárának <http://www.ksh.hu/apps/hntr.main>, illetve a postai
+    irányítószámok <https://www.posta.hu/szolgaltatasok/iranyitoszam-kereso>
+    KSH-s településazonosítókhoz és a NAV által használt igazgatósági kódok
+    <http://www.nav.gov.hu/nav/adatbazisok/adatbleker/afaalanyok/afaalany_taj.html>
+    területi osztályozásokhoz kapcsolt tábláit tartalmazza.
 Depends:
     R (>= 2.10)
 Imports:

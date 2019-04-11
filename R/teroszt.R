@@ -1,5 +1,6 @@
 #' @importFrom tibble tibble
-NULL
+#' @keywords internal
+"_PACKAGE"
 
 #' A területi számjelrendszer (TSZJ) 2018-as kiadása
 #'
