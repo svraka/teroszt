@@ -1,7 +1,7 @@
 Package: teroszt
 Type: Package
 Title: Magyarországon használt területi osztályozások adattáblái
-Version: 0.2.0.9000
+Version: 0.2.0
 Authors@R: person("András", "Svraka", email = "svraka.andras@gmail.com",
     role = c("aut", "cre"))
 Description: Ez az R csomag a KSH Területi számjelrendszerének
