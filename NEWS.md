@@ -1,3 +1,10 @@
+# teroszt 0.2.1
+
+## Új adatok
+
+* `irsz_2018` kiegészítése egy `csak_kulterulet` oszloppal: Vannak olyan irányítószámok, amelyek több településhez is tartoznak.   Ez az oszlop azt jelöli, hogy az adott irányítószám és település páros csak külterületként fordul-e elő.  Ez az oszlop segít besorolni egyéb területi egységekbe a nem egyértelmű irányítószámokat.
+
+
 # teroszt 0.2.0
 
 ## Új adatok
