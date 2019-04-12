@@ -58,8 +58,9 @@ irsz_posta_2018 <- bind_rows(
     # Margit-szigetnek sajat iranyitoszama van
     telepules = if_else(irsz == "1007", "Budapest", telepules)
   ) %>%
+  select(-telepulesresz) %>%
   group_by(telepules) %>%
-  summarise(irsz = list(irsz))
+  nest(.key = "irsz")
 
 
 # Iranyitoszamok a HNT-bol
@@ -88,11 +89,27 @@ hnt_irsz_2018_kieg <- read_excel(
 load("data/hnt_telepulesreszek_2018.rda")
 
 hnt_telepulesreszek_2018 <- hnt_telepulesreszek_2018 %>%
-  select(torzsszam, telepules, irsz) %>%
+  select(torzsszam, telepules, irsz, kulterulet_jellege) %>%
+  mutate(
+    kulterulet = !is.na(kulterulet_jellege),
+    # Budapesten minden utcajegyzekkel megy, nem kell a kulteruletekkel
+    # foglalkozni.
+    kulterulet = replace(
+      kulterulet,
+      str_detect(telepules, "Budapest"),
+      FALSE
+    )
+  ) %>%
+  select(-kulterulet_jellege) %>%
   distinct %>%
-  # Zalaszentgróton van egy dupla iranyitoszamos telepulesresz.  Mindket iranyitszam hasznalt mas telepulesreszen is, igy dobjuk
+  # Zalaszentgróton van egy dupla iranyitoszamos telepulesresz.  Mindket
+  # iranyitoszam hasznalt mas telepulesreszen is, igy dobjuk.
   filter(irsz != "8790/8795") %>%
-  mutate(irsz = if_else(irsz == "*", NA_character_, irsz))
+  mutate(irsz = if_else(irsz == "*", NA_character_, irsz)) %>%
+  # Megjeloljuk azokat a telepulesreszeket, amiknek sajat iranyitoszamuk van, de
+  # ezen a telepulesen ez az iranyitoszam csak hozzajuk tartozik.
+  group_by(torzsszam, telepules, irsz) %>%
+  summarise(csak_kulterulet = as.logical(min(kulterulet)))
 
 # Egybe
 
@@ -104,8 +121,7 @@ hnt_irsz_2018 <- hnt_telepulesreszek_2018 %>%
   ungroup %>%
   arrange(telepules) %>%
   group_by(torzsszam, telepules) %>%
-  summarise(irsz = list(irsz)) %>%
-  ungroup
+  nest(.key = "irsz")
 
 
 # Postai es KSH osszeolvasztasa
@@ -117,14 +133,23 @@ stopifnot(nrow(irsz_posta_2018) == nrow(hnt_irsz_2018))
 # Minden telepulesnek van parja nev szerint, de vannak kulonbozo iranyitoszamok.
 # Ezeket egysegesitjuk
 
+collapse_irsz <- function(df) {
+  df %>%
+    filter(!is.na(irsz)) %>%
+    mutate(
+      csak_kulterulet = replace_na(csak_kulterulet, FALSE)
+    ) %>%
+    group_by(irsz) %>%
+    summarise(csak_kulterulet = as.logical(min(csak_kulterulet)))
+}
+
+
 irsz_2018 <- hnt_irsz_2018 %>%
   full_join(irsz_posta_2018, by = "telepules") %>%
   group_by(torzsszam, telepules) %>%
   mutate(
-    irsz = list(append(irsz.x, irsz.y, after = length(irsz.x))),
-    irsz = list(unlist(irsz)),
-    irsz = map(irsz, ~discard(., is.na)),
-    irsz = map(irsz, unique)
+    irsz = map2(irsz.x, irsz.y, bind_rows),
+    irsz = map(irsz, collapse_irsz)
   ) %>%
   select(-irsz.x, -irsz.y) %>%
   unnest %>%

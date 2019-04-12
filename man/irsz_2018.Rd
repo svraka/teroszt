@@ -8,9 +8,12 @@
 nyilvántartásában szereplő irányítószámhoz megadja a települést.
 
 \describe{
-  \item{torzsszam}{A település KSH-s településazonosító törzsszáma}
-  \item{telepules}{Település neve}
-  \item{irsz}{Irányítószám}
+  \item{torzsszam}{A település KSH-s településazonosító törzsszáma.}
+  \item{telepules}{Település neve.}
+  \item{irsz}{Irányítószám.}
+  \item{csak_kulterulet}{Vannak olyan irányítószámok, amelyek több
+    településhez is tartoznak.  Ez az oszlop azt jelöli, hogy az adott
+    irányítószám és település páros csak külterületként fordul-e elő.}
 }}
 \source{
 A jelen tartalom a Központi Statisztikai Hivatal Helységnévtára
