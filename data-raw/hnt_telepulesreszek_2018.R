@@ -3,7 +3,7 @@ library(readxl)
 library(readr)
 library(stringr)
 library(forcats)
-library(asmisc)
+library(janitor, warn.conflicts = FALSE)
 
 
 # Kapcsolotabla a kulterulet jellege megnevezesekhez

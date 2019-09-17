@@ -16,13 +16,11 @@ Depends:
 Imports:
     tibble
 Suggests:
-    asmisc,
     dplyr,
+    janitor,
     readxl,
     tidyr,
     usethis
-Remotes:
-    github::svraka/asmisc
 License: CC0
 Encoding: UTF-8
 LazyData: true

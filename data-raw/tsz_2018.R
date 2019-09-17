@@ -1,7 +1,7 @@
 library(dplyr, warn.conflicts = FALSE)
 library(tidyr)
 library(readxl)
-library(asmisc)
+library(janitor, warn.conflicts = FALSE)
 
 
 # Fo tabla

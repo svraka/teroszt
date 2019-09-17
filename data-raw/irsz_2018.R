@@ -3,7 +3,7 @@ library(stringr)
 library(purrr)
 library(readxl)
 library(tidyr)
-library(asmisc)
+library(janitor, warn.conflicts = FALSE)
 
 
 
