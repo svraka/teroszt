@@ -19,6 +19,7 @@ Suggests:
     dplyr,
     janitor,
     readxl,
+    sf,
     tidyr,
     usethis
 License: CC0
