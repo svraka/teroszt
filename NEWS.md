@@ -1,3 +1,9 @@
+# teroszt 0.3.0
+
+## Geospatial data
+
+- Add `kozighatarok_2018`, a geospatial data frame with Hungarian administrative boundries based on OpenStreetMap data.
+
 # teroszt 0.2.1
 
 ## Új adatok
