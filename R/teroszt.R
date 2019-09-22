@@ -108,3 +108,23 @@
 #' (\url{http://www.nav.gov.hu/nav/adatbazisok/adatbleker/afaalanyok/afaalany_taj.html}).
 #' A hozzáférés dátuma 2019. április 10.
 "nav_igazgatosagi_kodok"
+
+#' Geospatial data of Hungarian administrative divisions from OpenStreetMap
+#'
+#' A data frame with geographic boundaries for all Hungarian administrative
+#' divisions based on OpenStreetMap data. Adopted for compatibility with HCSO
+#' territorial code system.
+#'
+#' @format A Simple Features data frame.
+#'
+#' \describe{
+#'   \item{NAME}{Name of the administrative division.}
+#'   \item{ADMIN_LEVE}{OpenStreetMap \code{admin_level} values, see \url{https://wiki.openstreetmap.org/wiki/Tag:boundary\%3Dadministrative#10_admin_level_values_for_specific_countries}.}
+#'   \item{CODE}{IDs used by HCSO for administrative divisions.}
+#'   \item{geometry}{Geospatial information.}
+#' }
+#'
+#' @source OpenStreetMap \url{https://data2.openstreetmap.hu/hatarok/}, licenced
+#'   under CC BY-SA \url{https://www.openstreetmap.org/copyright} ©
+#'   OpenStreetMap contributors. Downloaded on 13th September 2019.
+"kozighatarok_2018"
