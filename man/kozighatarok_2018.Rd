@@ -9,6 +9,7 @@
 \describe{
   \item{NAME}{Name of the administrative division.}
   \item{ADMIN_LEVE}{OpenStreetMap \code{admin_level} values, see \url{https://wiki.openstreetmap.org/wiki/Tag:boundary\%3Dadministrative#10_admin_level_values_for_specific_countries}.}
+  \item{ADMIN_NAME}{Label for \code{ADMIN_LEVE}.}
   \item{CODE}{IDs used by HCSO for administrative divisions.}
   \item{geometry}{Geospatial information.}
 }}

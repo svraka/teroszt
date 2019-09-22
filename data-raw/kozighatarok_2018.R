@@ -1,4 +1,5 @@
 library(dplyr)
+library(forcats)
 library(sf)
 library(stringr)
 library(tibble)
@@ -93,11 +94,22 @@ tsz_2018_levels <- bind_rows(
   mutate(CODE = coalesce(!!! select(., -ADMIN_LEVE, -NAME))) %>%
   select(., ADMIN_LEVE, NAME, CODE)
 
-# Join maps with HCSO IDs
+# Join maps with HCSO IDs and add labels
 
 kozighatarok_2018 <- kozighatarok %>%
   left_join(tsz_2018_levels, by = c("NAME", "ADMIN_LEVE")) %>%
-  arrange(ADMIN_LEVE, CODE)
+  arrange(ADMIN_LEVE, CODE) %>%
+  mutate(
+    ADMIN_LEVE = as.factor(ADMIN_LEVE),
+    ADMIN_NAME = fct_recode(ADMIN_LEVE,
+       orszag    = "02",
+       regio     = "05",
+       megye     = "06",
+       jaras     = "07",
+       telepules = "08",
+       varosresz = "10"
+    )) %>%
+  select(NAME, ADMIN_LEVE, ADMIN_NAME, CODE, geometry)
 
 # Saving
 
