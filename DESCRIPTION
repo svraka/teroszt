@@ -14,12 +14,12 @@ Description: Ez az R csomag a KSH Területi számjelrendszerének
 Depends:
     R (>= 2.10)
 Imports:
+    sf,
     tibble
 Suggests:
     dplyr,
     janitor,
     readxl,
-    sf,
     tidyr,
     usethis
 License: CC0
