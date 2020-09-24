@@ -8,7 +8,7 @@
 
 ## New data
 
-  * Add a new `csak_kulterulet` column to `irsz_2018`: Some settlements share postcodes. This column flags if a postcode within a settlement only covers area outside a built-up area (*külterület*). This is intended to help classifying postcodes into administrative divisions in case the postcode is ambiguous.
+  * Add a new `csak_kulterulet` column to `irsz_2018`: Some settlements share postal codes. This column flags if a postal code within a settlement only covers area outside a built-up area (*külterület*). This is intended to help classifying postal codes into administrative divisions in case the postal code is ambiguous.
 
 # teroszt 0.2.0
 
@@ -26,4 +26,4 @@ First release, with the following tables
 
   * 2018 territorial code system (`tsz_2018`).
   * 2018 settlements and settlement parts based on the Detailed Gazetteer (`hnt_telepulesreszek_2018`).
-  * Crosswalk table between postcodes and settlement IDs in the territorial code system (*településazonosító törzsszámok*) based on the 2018 Gazetteer (`irsz_2018`).
+  * Crosswalk table between postal codes and settlement IDs in the territorial code system (*településazonosító törzsszámok*) based on the 2018 Gazetteer (`irsz_2018`).
