@@ -6,7 +6,7 @@ library(forcats)
 library(janitor, warn.conflicts = FALSE)
 
 
-# Kapcsolotabla a kulterulet jellege megnevezesekhez
+# Lookup table for the type of non--built-up areas
 
 hnt_telepulesreszek_2018_kulterulet_jellege <- read_excel(
     path = "data-raw/hnt_2018.xls",
@@ -22,14 +22,14 @@ hnt_telepulesreszek_2018_kulterulet_jellege <- read_excel(
     kulterulet_jellege_nev = str_to_sentence(kulterulet_jellege_nev)
   )
 
-# Kapcsolotabla a telepulesresz jellege megnevezesekhez
+# Lookup table for settlement part types
 
 hnt_telepulesresz_jelleg <- read_csv(
   file = "data-raw/hnt_telepulesresz_jelleg.csv",
   col_types = "cc"
 )
 
-# Telepulesreszek tabla beolvasasa
+# Reading main table
 
 hnt_telepulesreszek_2018 <- read_excel(
     path = "data-raw/hnt_2018.xls",
@@ -52,7 +52,7 @@ hnt_telepulesreszek_2018 <- read_excel(
   )
 
 
-# Telepulesreszek tabla tisztitasa
+# Cleaning main table
 
 hnt_telepulesreszek_2018 <- hnt_telepulesreszek_2018 %>%
   mutate_at(
@@ -76,12 +76,12 @@ hnt_telepulesreszek_2018 <- hnt_telepulesreszek_2018 %>%
   ) %>%
   mutate(kulterulet_jellege = factor(kulterulet_jellege_nev)) %>%
   select(-kulterulet_jellege_nev) %>%
-  # Gulácsnak van egy kulterulete, aminek mas a torzsszama, mint a falu egyeb
-  # reszeinek, raadasul ilyen torzsszam a TSZJ-ben sincs.  Iranyitoszamot nem
-  # vesztunk, ennek ugyanaz, mint az egesz faluna.  Dobjuk.
+  # Gulács village has a periphery with a separate settlement ID,
+  # which isn't even in the territorial code system. As it has the
+  # same postal code, we can simply drop it.
   filter(!(torzsszam == "29444" & telepules == "Gulács"))
 
 
-# Mentes
+# Saving
 
 usethis::use_data(hnt_telepulesreszek_2018, overwrite = TRUE)

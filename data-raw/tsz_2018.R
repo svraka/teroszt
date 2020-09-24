@@ -4,7 +4,7 @@ library(readxl)
 library(janitor, warn.conflicts = FALSE)
 
 
-# Fo tabla
+# Main table
 
 tsz_2018 <- read_excel(
     path = "data-raw/teruleti_szamjelrendszer_struktura_elemei_2018.xlsx"
@@ -12,24 +12,24 @@ tsz_2018 <- read_excel(
   clean_names
 
 
-# Segedtabla a fontosabb besorolasok megnevezesivel
+# Helper table with the main classifications' labels
 
 tsz_2018_megnevezessel <- read_excel(
     path = "data-raw/teruleti_szamjelrendszer_struktura_elemei_2018_megnevezesekkel.xlsx"
   ) %>%
   clean_names %>%
-  # Egyseges elnevezes
+  # Uniform names
   rename(
     telepules_azonosito_torzsszam = telepules_azonosito_torzsszam_telepuleskod
   ) %>%
-  # Mindket tablaban meglevo valtozokat kivesszuk
+  # Drop columns present in both tables
   select(
     -nev, -teruleti_jelzoszam, -jogallas_2005, -statisztikai_nagyregio_kodja,
     -regio_2016_kodja, -jaras_kod
   )
 
 
-# Osszekapcsolas es nevek egyszerusitese
+# Joining the tables and simplifying column names
 
 tsz_2018 <- tsz_2018 %>%
   left_join(tsz_2018_megnevezessel, by = "telepules_azonosito_torzsszam") %>%
@@ -67,22 +67,19 @@ tsz_2018 <- tsz_2018 %>%
   )
 
 
-# Par javitas Budapestnel
+# A few cosmetic fixes for Budapest
 
 tsz_2018 <- tsz_2018 %>%
-  # A keruletek megyejenel "fovaros" van, ezeket lecsereljuk.
+  # Budapest's 23 districts are classified under "fovaros". Replace them
+  # with Budapest, to make it consistent with other sources.
   mutate(
     megye_nev = if_else(megye == "01", "Budapest", megye_nev)
   ) %>%
-  # Budapest telepulesnel (nem a keruleteknel!) uresen hagytak a regio nevet, de
-  # a kod ki vannak toltve.  Ezt javitjuk, de ilyen ganyolassal, hogy ne kelljen
-  # leirni az erteket, mert az karakterkodolasi problemakhoz `R CMD CHECK``
-  # warningokhoz vezet.
   arrange(jaras, jaras_nev) %>%
   fill(jaras_nev) %>%
   arrange(torzsszam)
 
 
-# Mentes
+# Save
 
 usethis::use_data(tsz_2018, overwrite = TRUE)
