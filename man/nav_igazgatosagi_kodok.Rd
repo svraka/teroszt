@@ -3,28 +3,39 @@
 \docType{data}
 \name{nav_igazgatosagi_kodok}
 \alias{nav_igazgatosagi_kodok}
-\title{NAV igazgatósági kódok}
-\format{Egy data frame 199 sorral, amely minden járáshoz megadja az illetékes NAV
-igazgatóság kódját.  A 999-es, fiktív járáshoz lett sorolva a két kiemelt
-igazgatóság.
+\title{National Tax and Customs Administration's directorates}
+\format{
+A tibble with 199 rows, which connects every district
+  (\sQuote{járás}) to their respective tax directorate. A fictional
+  \code{999} code is used for directorates of Large Taxpayers,
+  which opearate on a non-territorial basis.
 
 \describe{
-  \item{nav_ig_nev}{Az igazgatóság neve}
-  \item{nav_ig_tarsas}{Igazgatóság kódja, társas adóalany esetén}
-  \item{nav_ig_egyeni}{Igazgatóság kódja, egyéni adóalany esetén}
-  \item{megye}{Megye kódja (ld. TSZJ)}
-  \item{jaras}{Járás kódja (ld. TSZJ)}
-}}
+  \item{nav_ig_nev}{Name of the directorate}
+  \item{nav_ig_tarsas}{Code of the directorate for corporate
+    taxpayers}
+  \item{nav_ig_egyeni}{Code of the directorate for sole propriator
+    taxpayers}
+  \item{megye}{County code, see \link{tsz_2018}}
+  \item{jaras}{District code, see \link{tsz_2018}}
+}
+}
 \source{
-(\url{http://www.nav.gov.hu/nav/adatbazisok/adatbleker/afaalanyok/afaalany_taj.html}).
-A hozzáférés dátuma 2019. április 10.
+\url{http://www.nav.gov.hu/nav/adatbazisok/adatbleker/afaalanyok/afaalany_taj.html}.
+Downloaded at 10 April 2019.
 }
 \usage{
 nav_igazgatosagi_kodok
 }
 \description{
-A Nemzeti Adó- és Vámhivatal által használt területi igazgatósági kódok és a
-hozzájuk kapcsolódó megye- és járáskódok a területi számrendszerből.  Ezek az
-igazgatósági kódok az adószám utolsó két számjegyei is.
+A territorial classification used by the National Tax and Customs
+Administration (\sQuote{Nemzeti Adó- és Vámhivatal}) to identify
+directorates, and a crosswalk between the directorates' counties
+(\sQuote{megye}) and districts (\sQuote{járás}) from the
+territorial code system.
+}
+\details{
+The directorates' codes correspond the last two digits of
+  the tax IDs.
 }
 \keyword{datasets}

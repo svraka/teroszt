@@ -1,4 +1,4 @@
-# teroszt – Magyarországon használt területi osztályozások adattáblái
+# teroszt – An R package with data for Hungarian administrative and statistical divisions
 
 <!-- badges: start -->
 
@@ -6,14 +6,19 @@
 
 <!-- badges: end -->
 
-Ez az R csomag a KSH [Területi számjelrendszerének](http://www.ksh.hu/teruleti_szamjel_menu), [Helységnévtárának](http://www.ksh.hu/apps/hntr.main), illetve a [postai irányítószámok](https://www.posta.hu/szolgaltatasok/iranyitoszam-kereso) KSH-s településazonosítókhoz és a [NAV által használt igazgatósági kódok](http://www.nav.gov.hu/nav/adatbazisok/adatbleker/afaalanyok/afaalany_taj.html) területi osztályozásokhoz kapcsolt tábláit tartalmazza.
+This package provides data for Hungarian statistical and administrative divisions and crosswalks among them.
 
-*This pacakges provides data in R for the Hungarian Central Statistical Office's (HCSO) [territorial code system](https://www.ksh.hu/tszJ_eng_menu), [Detailed Gazetteer](http://www.ksh.hu/apps/hntr.main?p_lang=EN) and a tables linking HCSO's settlement identification numbers to [postal codes](https://www.posta.hu/szolgaltatasok/iranyitoszam-kereso) and [territorial codes used by the National Tax and Customs Office](http://www.nav.gov.hu/nav/adatbazisok/adatbleker/afaalanyok/afaalany_taj.html) (NTCA) to administrative divisions.*
+  * The Hungarian Central Statistical Office's (HCSO) [territorial code system](https://www.ksh.hu/tszJ_eng_menu) ([*Területi számjelrendszer*](http://www.ksh.hu/teruleti_szamjel_menu))
+  * [Detailed Gazetteer](http://www.ksh.hu/apps/hntr.main?p_lang=EN) ([*Helységnévtár*](http://www.ksh.hu/apps/hntr.main))
+  * Tables linking HCSO's settlement identification numbers to [postal codes](https://www.posta.hu/szolgaltatasok/iranyitoszam-kereso)
+  * [Territorial codes used by the National Tax and Customs Administration](http://www.nav.gov.hu/nav/adatbazisok/adatbleker/afaalanyok/afaalanytaj.html) (NTCA)
+  * Administrative boundaries based on [OpenStreetMap data](https://data2.openstreetmap.hu/hatarok/)
 
+The name comes from shortening *ter*ületi *oszt*ályozások, meaning territorial classifications in Hungarian.
 
-## Telepítés
+## Installation
 
-A csomag legfrissebb változata Githubról telepíthető:
+This package is not (yet) on CRAN. The latest development version can be installed from GitHub:
 
 ``` r
 # install.packages("devtools")

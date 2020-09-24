@@ -4,15 +4,17 @@
 \name{teroszt-package}
 \alias{teroszt}
 \alias{teroszt-package}
-\title{teroszt: Magyarországon használt területi osztályozások adattáblái}
+\title{teroszt: Data for Hungarian Administrative and Statistical Divisions}
 \description{
-Ez az R csomag a KSH Területi számjelrendszerének
-    <http://www.ksh.hu/teruleti_szamjel_menu>,
-    Helységnévtárának <http://www.ksh.hu/apps/hntr.main>, illetve a postai
-    irányítószámok <https://www.posta.hu/szolgaltatasok/iranyitoszam-kereso>
-    KSH-s településazonosítókhoz és a NAV által használt igazgatósági kódok
-    <http://www.nav.gov.hu/nav/adatbazisok/adatbleker/afaalanyok/afaalany_taj.html>
-    területi osztályozásokhoz kapcsolt tábláit tartalmazza.
+Data and crosswalk tables for the Central Statistical
+     Office's territorial code system
+     <http://www.ksh.hu/teruleti_szamjel_menu> and Detailed Gazetteer
+     <http://www.ksh.hu/apps/hntr.main?plang=EN>, postal codes
+     <https://www.posta.hu/szolgaltatasok/iranyitoszam-kereso>, the
+     National Tax and Customs Administration's classifications
+     <http://www.nav.gov.hu/nav/adatbazisok/adatbleker/afaalanyok/afaalany_taj.html>
+     and OpenStreetMap administrative boundaries
+     <https://data2.openstreetmap.hu/hatarok>.
 }
 \seealso{
 Useful links:

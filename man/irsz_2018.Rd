@@ -3,35 +3,48 @@
 \docType{data}
 \name{irsz_2018}
 \alias{irsz_2018}
-\title{Irányítószámok és települések (2018)}
-\format{Egy data frame 3859 sorral, amely minden, a Helységnévtárban és a Posta
-nyilvántartásában szereplő irányítószámhoz megadja a települést.
+\title{Postal codes and settlements (2018)}
+\format{
+A tibble with 3,859 rows, which gives a crosswalk between
+  all the valid postal codes in the Hungarian Postal Service's
+  database and settlement IDs.
 
 \describe{
-  \item{torzsszam}{A település KSH-s településazonosító törzsszáma.}
-  \item{telepules}{Település neve.}
-  \item{irsz}{Irányítószám.}
-  \item{csak_kulterulet}{Vannak olyan irányítószámok, amelyek több
-    településhez is tartoznak.  Ez az oszlop azt jelöli, hogy az adott
-    irányítószám és település páros csak külterületként fordul-e elő.}
-}}
+  \item{torzsszam}{The settlement's HCSO ID number
+    (\sQuote{településazonosító törzsszám})}
+  \item{telepules}{Name of the settlement}
+  \item{irsz}{Postal code}
+  \item{csak_kulterulet}{Some settlements share postal codes. This
+    column flags if a postal code within a settlement only covers area
+    outside a built-up area (\sQuote{külterület}). This is intended
+    to help classifying postal codes into administrative divisions in
+    case the postal code is ambiguous.}
+}
+}
 \source{
-A jelen tartalom a Központi Statisztikai Hivatal Helységnévtára
-(\url{http://www.ksh.hu/apps/hntr.main}) 2018-as kiadásának felhasználásával
-készült.  A csomagban foglaltak kizárólag Svraka András, mint szerző szellemi
-termékei.  A letöltés dátuma 2019. április 4.
+The present content was prepared using the Detailed
+  Gazetteer of the Hungarian Central Statistical Office
+  (\url{http://www.ksh.hu/apps/hntr.main?p_lang=EN}). What is
+  included in this package is the intellectual product solely of
+  this package's authors. Downloaded at 5 April 2019.
 
-Az irányítószámok forrása a Magyar Posta Zrt. honlapján közzétett
-\dQuote{Magyarországi postai irányítószámok}
-(\url{https://www.posta.hu/szolgaltatasok/iranyitoszam-kereso}).  A letöltés
-dátuma 2019. április 5.
+The source of the postal codes is Hungarian Postal Service's
+(\sQuote{Magyar Posta Zrt.}) website:
+(\url{https://www.posta.hu/szolgaltatasok/iranyitoszam-kereso}).
+Downloaded at 5 April 2019.
 }
 \usage{
 irsz_2018
 }
 \description{
-A Magyar Posta nyilvántartása szerinti összes irányítószám, a kapcsolódó
-település neve a KSH helységnévtárából hozzákapcsolva a településazonosító
-törzsszámokat.
+A crosswalk table connecting Hungarian Postal Service's postal
+codes (\sQuote{\emph{ir}ányító\emph{sz}ám}) and the HCSO's
+settlement IDs.
+}
+\details{
+Note that postal codes cross district and county level,
+  and even regional boundries. Classifying postal codes into
+  administrative divsions requires further data cleaning at this
+  time.
 }
 \keyword{datasets}

@@ -3,111 +3,132 @@
 #' @keywords internal
 "_PACKAGE"
 
-#' A területi számjelrendszer (TSZJ) 2018-as kiadása
+#' 2018 edition of the territorial code system
 #'
-#' Ez a tábla a KSH területi számjelrendszerének (TSZJ) 2018-as kiadását
-#' tartalmazza.
+#' A dataset with the 2018 edition of the Hungarian Central
+#' Statistical Office's territorial code system (\sQuote{területi
+#' számjelrendszer}).
 #'
-#' @format
-#' Egy data frame 3200 sorral, amely minden településazonosító törzsszámmal
-#' rendelkező településről tartalmazza a területi számjelrendszerkategóriái
-#' szerinti besorolását a kategóriák kódjával, és a fontosabb csoportosításokról
-#' a kategóriák megnevezésével.  A változók tartalmának részletes leírása és a
-#' megnevezés nélküli kategóriák nevei megtalálhatóak a KSH módszertani
-#' dokumentációjában.
+#' @format A tibble with 3,200 rows, for each settlement that has an ID
+#'   number (\sQuote{településazonosító törzsszám}) with codes for the
+#'   classifications in the territorial code system, along with labels
+#'   for the main classifications. For a detailed explanation of the
+#'   variables see HCSO's documentation.
 #'
-#' @source
-#' A jelen tartalom a Központi Statisztikai Hivatal területi számjelrendszere
-#' (\url{http://www.ksh.hu/teruleti_szamjel_menu}) 2018-as kiadásának
-#' felhasználásával készült.  A csomagban foglaltak kizárólag Svraka András,
-#' mint szerző szellemi termékei.  A letöltés dátuma 2019. április 4.
+#' @source The present content was prepared using the territorial
+#'   classification system of the Hungarian Central Statistical Office
+#'   (\url{https://www.ksh.hu/tszJ_eng_menu}). What is included in
+#'   this package is the intellectual product solely of this package's
+#'   authors. Downloaded at 4 April 2019.
 "tsz_2018"
 
-#' Településrészek a Helységnévtár 2018-as kiadásából
+#' Settlement parts from 2018 edition of the Detailed Gazetteer
 #'
-#' Ez a tábla a KSH Helységnévtárának 2018-as kiadásából tartalmazza a
-#' településrészeket.
+#' A dataset with settlement parts' information from the 2018 edition
+#' of the Hungarian Central Statistical Office's Detailed Gazetteer.
 #'
-#' @format Egy data frame 13 558 sorral, amely a Helységnévtárban szereplő
-#' összes település településrészével az alábbi változókkal:
+#' @format A tibble with 13,558 rows, containing all settlements and
+#'   settlement parts in the Detailed Gazetteer, with the following
+#'   variables:
 #'
 #' \describe{
-#'   \item{torzsszam}{A település KSH-s településazonosító törzsszáma}
-#'   \item{telepules}{Település neve}
-#'   \item{telepulesresz}{Településrész neve}
-#'   \item{telepulesresz_jelleg}{Településrész jellege (központi belterület,
-#'     belterület, külterület)}
-#'   \item{irsz}{Irányítószám (nem teljes körű, hiányoznak az utcajegyzék
-#'     alapján meghatározott irányítószámok)}
-#'   \item{kulterulet_jellege}{Külterület jellege a KSH módszertana szerint}
-#'   \item{telepulesresz_tavolsaga_kozponti_belterulettol}{A településrész
-#'     távolsága a központi belterülettől (km)}
-#'   \item{nepszamlalasi_lakonepesseg}{A népszámlálási lakónépesség (fő)}
-#'   \item{lakasok_szama}{A lakások száma (db)}
-#'   \item{lakott_egyeb_lakoegysegek_szama}{Lakott egyéb lakóegységek száma
-#'     (db)}
+#'   \item{torzsszam}{The settlement's HCSO ID number
+#'     (\sQuote{településazonosító törzsszám})}
+#'   \item{telepules}{Name of the settlement}
+#'   \item{telepulesresz}{Name of the settlement part}
+#'   \item{telepulesresz_jelleg}{Type of the settlement part:
+#'     \sQuote{központi belterület} (central built-up area),
+#'     \sQuote{belterület} (built-up area), \sQuote{külterület}
+#'     (outside of built-up area)}
+#'   \item{irsz}{Postal code (incomplete, postal codes based on street
+#'     address level classification -- used in the largest cities --
+#'     are missing)}
+#'   \item{kulterulet_jellege}{Type of non--built-up area, based on HCSO's
+#'     methodology}
+#'   \item{telepulesresz_tavolsaga_kozponti_belterulettol}{Distance of
+#'     the settlement part from the settlement's central built-up area (km)}
+#'   \item{nepszamlalasi_lakonepesseg}{Resident population at the time
+#'     of the last census}
+#'   \item{lakasok_szama}{Number of dwellings}
+#'   \item{lakott_egyeb_lakoegysegek_szama}{Number of occupied other
+#'     housing units}
 #' }
 #'
-#' @source
-#' A jelen tartalom a Központi Statisztikai Hivatal Helységnévtára
-#' (\url{http://www.ksh.hu/apps/hntr.main}) 2018-as kiadásának felhasználásával
-#' készült.  A csomagban foglaltak kizárólag Svraka András, mint szerző szellemi
-#' termékei.  A letöltés dátuma 2019. április 5.
+#' @source The present content was prepared using the Detailed
+#'   Gazetteer of the Hungarian Central Statistical Office
+#'   (\url{http://www.ksh.hu/apps/hntr.main?p_lang=EN}). What is
+#'   included in this package is the intellectual product solely of
+#'   this package's authors. Downloaded at 5 April 2019.
 "hnt_telepulesreszek_2018"
 
-#' Irányítószámok és települések (2018)
+#' Postal codes and settlements (2018)
 #'
-#' A Magyar Posta nyilvántartása szerinti összes irányítószám, a kapcsolódó
-#' település neve a KSH helységnévtárából hozzákapcsolva a településazonosító
-#' törzsszámokat.
+#' A crosswalk table connecting Hungarian Postal Service's postal
+#' codes (\sQuote{\emph{ir}ányító\emph{sz}ám}) and the HCSO's
+#' settlement IDs.
 #'
-#' @format
-#' Egy data frame 3859 sorral, amely minden, a Helységnévtárban és a Posta
-#' nyilvántartásában szereplő irányítószámhoz megadja a települést.
+#' @format A tibble with 3,859 rows, which gives a crosswalk between
+#'   all the valid postal codes in the Hungarian Postal Service's
+#'   database and settlement IDs.
 #'
 #' \describe{
-#'   \item{torzsszam}{A település KSH-s településazonosító törzsszáma.}
-#'   \item{telepules}{Település neve.}
-#'   \item{irsz}{Irányítószám.}
-#'   \item{csak_kulterulet}{Vannak olyan irányítószámok, amelyek több
-#'     településhez is tartoznak.  Ez az oszlop azt jelöli, hogy az adott
-#'     irányítószám és település páros csak külterületként fordul-e elő.}
+#'   \item{torzsszam}{The settlement's HCSO ID number
+#'     (\sQuote{településazonosító törzsszám})}
+#'   \item{telepules}{Name of the settlement}
+#'   \item{irsz}{Postal code}
+#'   \item{csak_kulterulet}{Some settlements share postal codes. This
+#'     column flags if a postal code within a settlement only covers area
+#'     outside a built-up area (\sQuote{külterület}). This is intended
+#'     to help classifying postal codes into administrative divisions in
+#'     case the postal code is ambiguous.}
 #' }
 #'
-#' @source
-#' A jelen tartalom a Központi Statisztikai Hivatal Helységnévtára
-#' (\url{http://www.ksh.hu/apps/hntr.main}) 2018-as kiadásának felhasználásával
-#' készült.  A csomagban foglaltak kizárólag Svraka András, mint szerző szellemi
-#' termékei.  A letöltés dátuma 2019. április 4.
+#' @details Note that postal codes cross district and county level,
+#'   and even regional boundries. Classifying postal codes into
+#'   administrative divsions requires further data cleaning at this
+#'   time.
 #'
-#' Az irányítószámok forrása a Magyar Posta Zrt. honlapján közzétett
-#' \dQuote{Magyarországi postai irányítószámok}
-#' (\url{https://www.posta.hu/szolgaltatasok/iranyitoszam-kereso}).  A letöltés
-#' dátuma 2019. április 5.
+#' @source The present content was prepared using the Detailed
+#'   Gazetteer of the Hungarian Central Statistical Office
+#'   (\url{http://www.ksh.hu/apps/hntr.main?p_lang=EN}). What is
+#'   included in this package is the intellectual product solely of
+#'   this package's authors. Downloaded at 5 April 2019.
+#'
+#' The source of the postal codes is Hungarian Postal Service's
+#' (\sQuote{Magyar Posta Zrt.}) website:
+#' (\url{https://www.posta.hu/szolgaltatasok/iranyitoszam-kereso}).
+#' Downloaded at 5 April 2019.
 "irsz_2018"
 
-#' NAV igazgatósági kódok
+#' National Tax and Customs Administration's directorates
 #'
-#' A Nemzeti Adó- és Vámhivatal által használt területi igazgatósági kódok és a
-#' hozzájuk kapcsolódó megye- és járáskódok a területi számrendszerből.  Ezek az
-#' igazgatósági kódok az adószám utolsó két számjegyei is.
+#' A territorial classification used by the National Tax and Customs
+#' Administration (\sQuote{Nemzeti Adó- és Vámhivatal}) to identify
+#' directorates, and a crosswalk between the directorates' counties
+#' (\sQuote{megye}) and districts (\sQuote{járás}) from the
+#' territorial code system.
 #'
-#' @format
-#' Egy data frame 199 sorral, amely minden járáshoz megadja az illetékes NAV
-#' igazgatóság kódját.  A 999-es, fiktív járáshoz lett sorolva a két kiemelt
-#' igazgatóság.
+#' @format A tibble with 199 rows, which connects every district
+#'   (\sQuote{járás}) to their respective tax directorate. A fictional
+#'   \code{999} code is used for directorates of Large Taxpayers,
+#'   which opearate on a non-territorial basis.
 #'
 #' \describe{
-#'   \item{nav_ig_nev}{Az igazgatóság neve}
-#'   \item{nav_ig_tarsas}{Igazgatóság kódja, társas adóalany esetén}
-#'   \item{nav_ig_egyeni}{Igazgatóság kódja, egyéni adóalany esetén}
-#'   \item{megye}{Megye kódja (ld. TSZJ)}
-#'   \item{jaras}{Járás kódja (ld. TSZJ)}
+#'   \item{nav_ig_nev}{Name of the directorate}
+#'   \item{nav_ig_tarsas}{Code of the directorate for corporate
+#'     taxpayers}
+#'   \item{nav_ig_egyeni}{Code of the directorate for sole propriator
+#'     taxpayers}
+#'   \item{megye}{County code, see \link{tsz_2018}}
+#'   \item{jaras}{District code, see \link{tsz_2018}}
 #' }
 #'
+#' @details The directorates' codes correspond the last two digits of
+#'   the tax IDs.
+#'
 #' @source
-#' (\url{http://www.nav.gov.hu/nav/adatbazisok/adatbleker/afaalanyok/afaalany_taj.html}).
-#' A hozzáférés dátuma 2019. április 10.
+#' \url{http://www.nav.gov.hu/nav/adatbazisok/adatbleker/afaalanyok/afaalany_taj.html}.
+#' Downloaded at 10 April 2019.
 "nav_igazgatosagi_kodok"
 
 #' Geospatial data of Hungarian administrative divisions from OpenStreetMap
@@ -120,7 +141,8 @@
 #'
 #' \describe{
 #'   \item{NAME}{Name of the administrative division.}
-#'   \item{ADMIN_LEVE}{OpenStreetMap \code{admin_level} values, see \url{https://wiki.openstreetmap.org/wiki/Tag:boundary\%3Dadministrative#10_admin_level_values_for_specific_countries}.}
+#'   \item{ADMIN_LEVE}{OpenStreetMap \code{admin_level} values, see
+#'     \url{https://wiki.openstreetmap.org/wiki/Tag:boundary\%3Dadministrative#10_admin_level_values_for_specific_countries}.}
 #'   \item{ADMIN_NAME}{Label for \code{ADMIN_LEVE}.}
 #'   \item{CODE}{IDs used by HCSO for administrative divisions.}
 #'   \item{geometry}{Geospatial information.}

@@ -1,16 +1,18 @@
 Package: teroszt
 Type: Package
-Title: Magyarországon használt területi osztályozások adattáblái
+Title: Data for Hungarian Administrative and Statistical Divisions
 Version: 0.3.0.9999
 Authors@R: person("András", "Svraka", email = "svraka.andras@gmail.com",
     role = c("aut", "cre"))
-Description: Ez az R csomag a KSH Területi számjelrendszerének
-    <http://www.ksh.hu/teruleti_szamjel_menu>,
-    Helységnévtárának <http://www.ksh.hu/apps/hntr.main>, illetve a postai
-    irányítószámok <https://www.posta.hu/szolgaltatasok/iranyitoszam-kereso>
-    KSH-s településazonosítókhoz és a NAV által használt igazgatósági kódok
-    <http://www.nav.gov.hu/nav/adatbazisok/adatbleker/afaalanyok/afaalany_taj.html>
-    területi osztályozásokhoz kapcsolt tábláit tartalmazza.
+Description: Data and crosswalk tables for the Central Statistical
+     Office's territorial code system
+     <http://www.ksh.hu/teruleti_szamjel_menu> and Detailed Gazetteer
+     <http://www.ksh.hu/apps/hntr.main?plang=EN>, postal codes
+     <https://www.posta.hu/szolgaltatasok/iranyitoszam-kereso>, the
+     National Tax and Customs Administration's classifications
+     <http://www.nav.gov.hu/nav/adatbazisok/adatbleker/afaalanyok/afaalany_taj.html>
+     and OpenStreetMap administrative boundaries
+     <https://data2.openstreetmap.hu/hatarok>.
 Depends:
     R (>= 2.10)
 Imports:
@@ -28,4 +30,4 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/svraka/teroszt
 BugReports: https://github.com/svraka/teroszt/issues
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1

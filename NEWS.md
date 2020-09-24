@@ -2,31 +2,28 @@
 
 ## Geospatial data
 
-- Add `kozighatarok_2018`, a geospatial data frame with Hungarian administrative boundaries based on OpenStreetMap data.
+  * Add `kozighatarok_2018`, a geospatial data frame with Hungarian administrative boundaries based on [OpenStreetMap data](https://data2.openstreetmap.hu/hatarok/).
 
 # teroszt 0.2.1
 
-## Új adatok
+## New data
 
-* `irsz_2018` kiegészítése egy `csak_kulterulet` oszloppal: Vannak olyan irányítószámok, amelyek több településhez is tartoznak.   Ez az oszlop azt jelöli, hogy az adott irányítószám és település páros csak külterületként fordul-e elő.  Ez az oszlop segít besorolni egyéb területi egységekbe a nem egyértelmű irányítószámokat.
-
+  * Add a new `csak_kulterulet` column to `irsz_2018`: Some settlements share postcodes. This column flags if a postcode within a settlement only covers area outside a built-up area (*külterület*). This is intended to help classifying postcodes into administrative divisions in case the postcode is ambiguous.
 
 # teroszt 0.2.0
 
-## Új adatok
+## New data
 
-* `nav_igazgatosagi_kodok`: A Nemzeti Adó- és Vámhivatal által használt területi igazgatósági kódok és a hozzájuk kapcsolódó megye- és járáskódok a területi számrendszerből.
+  * `nav_igazgatosagi_kodok`: Territorial classifications used by the National Tax and Customs Office, and their crosswalks to counties (*megye*) and districts (járás).
 
-## Egyéb
+## Miscellaneous
 
-- Dokumentációs javítások.
+  * Documentation fixes
 
+# teroszt 0.1.0: Data for 2018
 
+First release, with the following tables
 
-# teroszt 0.1.0: 2018-as adatok
-
-Első release, az alábbi táblákkal:
-
-* 2018-as területi számjelrendszer (`tsz_2018`).
-* 2018-as Helységnévtár alapján a településrészek (`hnt_telepulesreszek_2018`).
-* 2018-as Helységnévtár és az aktuális postai irányítószámok alapján kapcsolótábla irányítószámok településazonosító törzsszámok között (`irsz_2018`).
+  * 2018 territorial code system (`tsz_2018`).
+  * 2018 settlements and settlement parts based on the Detailed Gazetteer (`hnt_telepulesreszek_2018`).
+  * Crosswalk table between postcodes and settlement IDs in the territorial code system (*településazonosító törzsszámok*) based on the 2018 Gazetteer (`irsz_2018`).

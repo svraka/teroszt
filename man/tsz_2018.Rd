@@ -3,24 +3,27 @@
 \docType{data}
 \name{tsz_2018}
 \alias{tsz_2018}
-\title{A területi számjelrendszer (TSZJ) 2018-as kiadása}
-\format{Egy data frame 3200 sorral, amely minden településazonosító törzsszámmal
-rendelkező településről tartalmazza a területi számjelrendszerkategóriái
-szerinti besorolását a kategóriák kódjával, és a fontosabb csoportosításokról
-a kategóriák megnevezésével.  A változók tartalmának részletes leírása és a
-megnevezés nélküli kategóriák nevei megtalálhatóak a KSH módszertani
-dokumentációjában.}
+\title{2018 edition of the territorial code system}
+\format{
+A tibble with 3,200 rows, for each settlement that has an ID
+  number (\sQuote{településazonosító törzsszám}) with codes for the
+  classifications in the territorial code system, along with labels
+  for the main classifications. For a detailed explanation of the
+  variables see HCSO's documentation.
+}
 \source{
-A jelen tartalom a Központi Statisztikai Hivatal területi számjelrendszere
-(\url{http://www.ksh.hu/teruleti_szamjel_menu}) 2018-as kiadásának
-felhasználásával készült.  A csomagban foglaltak kizárólag Svraka András,
-mint szerző szellemi termékei.  A letöltés dátuma 2019. április 4.
+The present content was prepared using the territorial
+  classification system of the Hungarian Central Statistical Office
+  (\url{https://www.ksh.hu/tszJ_eng_menu}). What is included in
+  this package is the intellectual product solely of this package's
+  authors. Downloaded at 4 April 2019.
 }
 \usage{
 tsz_2018
 }
 \description{
-Ez a tábla a KSH területi számjelrendszerének (TSZJ) 2018-as kiadását
-tartalmazza.
+A dataset with the 2018 edition of the Hungarian Central
+Statistical Office's territorial code system (\sQuote{területi
+számjelrendszer}).
 }
 \keyword{datasets}

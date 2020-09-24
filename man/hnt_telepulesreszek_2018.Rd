@@ -3,37 +3,47 @@
 \docType{data}
 \name{hnt_telepulesreszek_2018}
 \alias{hnt_telepulesreszek_2018}
-\title{Településrészek a Helységnévtár 2018-as kiadásából}
-\format{Egy data frame 13 558 sorral, amely a Helységnévtárban szereplő
-összes település településrészével az alábbi változókkal:
+\title{Settlement parts from 2018 edition of the Detailed Gazetteer}
+\format{
+A tibble with 13,558 rows, containing all settlements and
+  settlement parts in the Detailed Gazetteer, with the following
+  variables:
 
 \describe{
-  \item{torzsszam}{A település KSH-s településazonosító törzsszáma}
-  \item{telepules}{Település neve}
-  \item{telepulesresz}{Településrész neve}
-  \item{telepulesresz_jelleg}{Településrész jellege (központi belterület,
-    belterület, külterület)}
-  \item{irsz}{Irányítószám (nem teljes körű, hiányoznak az utcajegyzék
-    alapján meghatározott irányítószámok)}
-  \item{kulterulet_jellege}{Külterület jellege a KSH módszertana szerint}
-  \item{telepulesresz_tavolsaga_kozponti_belterulettol}{A településrész
-    távolsága a központi belterülettől (km)}
-  \item{nepszamlalasi_lakonepesseg}{A népszámlálási lakónépesség (fő)}
-  \item{lakasok_szama}{A lakások száma (db)}
-  \item{lakott_egyeb_lakoegysegek_szama}{Lakott egyéb lakóegységek száma
-    (db)}
-}}
+  \item{torzsszam}{The settlement's HCSO ID number
+    (\sQuote{településazonosító törzsszám})}
+  \item{telepules}{Name of the settlement}
+  \item{telepulesresz}{Name of the settlement part}
+  \item{telepulesresz_jelleg}{Type of the settlement part:
+    \sQuote{központi belterület} (central built-up area),
+    \sQuote{belterület} (built-up area), \sQuote{külterület}
+    (outside of built-up area)}
+  \item{irsz}{Postal code (incomplete, postal codes based on street
+    address level classification -- used in the largest cities --
+    are missing)}
+  \item{kulterulet_jellege}{Type of non--built-up area, based on HCSO's
+    methodology}
+  \item{telepulesresz_tavolsaga_kozponti_belterulettol}{Distance of
+    the settlement part from the settlement's central built-up area (km)}
+  \item{nepszamlalasi_lakonepesseg}{Resident population at the time
+    of the last census}
+  \item{lakasok_szama}{Number of dwellings}
+  \item{lakott_egyeb_lakoegysegek_szama}{Number of occupied other
+    housing units}
+}
+}
 \source{
-A jelen tartalom a Központi Statisztikai Hivatal Helységnévtára
-(\url{http://www.ksh.hu/apps/hntr.main}) 2018-as kiadásának felhasználásával
-készült.  A csomagban foglaltak kizárólag Svraka András, mint szerző szellemi
-termékei.  A letöltés dátuma 2019. április 5.
+The present content was prepared using the Detailed
+  Gazetteer of the Hungarian Central Statistical Office
+  (\url{http://www.ksh.hu/apps/hntr.main?p_lang=EN}). What is
+  included in this package is the intellectual product solely of
+  this package's authors. Downloaded at 5 April 2019.
 }
 \usage{
 hnt_telepulesreszek_2018
 }
 \description{
-Ez a tábla a KSH Helységnévtárának 2018-as kiadásából tartalmazza a
-településrészeket.
+A dataset with settlement parts' information from the 2018 edition
+of the Hungarian Central Statistical Office's Detailed Gazetteer.
 }
 \keyword{datasets}
