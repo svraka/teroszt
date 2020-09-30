@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 
-[![Travis build status](https://travis-ci.com/svraka/teroszt.svg?branch=master)](https://travis-ci.com/svraka/teroszt) [![CRAN](http://www.r-pkg.org/badges/version/teroszt)](https://cran.r-project.org/package=teroszt)
+[![R build status](https://github.com/svraka/teroszt/workflows/R-CMD-check/badge.svg)](https://github.com/svraka/teroszt/actions) [![CRAN](http://www.r-pkg.org/badges/version/teroszt)](https://cran.r-project.org/package=teroszt)
 
 <!-- badges: end -->
 
