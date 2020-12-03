@@ -14,7 +14,7 @@ irsz_posta_file <- "data-raw/iranyitoszam_2019-01-15.xlsx"
 # Regular postal codes
 
 irsz_posta_2018_sima <- read_excel(irsz_posta_file, col_types = "text") %>%
-  clean_names %>%
+  clean_names() %>%
   mutate(telepules = str_remove(telepules, "\\*"))
 
 # Postal codes based on street addresses (for large cities)
@@ -23,18 +23,18 @@ re_utca <- "[\\ \\.]u\\."
 
 irsz_posta_2018_utcajegyzekbol <- excel_sheets(irsz_posta_file) %>%
   str_subset(re_utca) %>%
-  set_names %>%
+  set_names() %>%
   map_dfr(
     ~read_excel(irsz_posta_file, sheet = ., col_types = "text") %>% clean_names,
     .id = "telepules"
   ) %>%
   select(telepules, irsz) %>%
-  distinct %>%
+  distinct() %>%
   mutate(
     telepules = str_remove(telepules, re_utca),
     telepules = str_replace(telepules, "^Bp$", "Budapest")
   ) %>%
-  arrange_all
+  arrange_all()
 
 # Constructing all valid postal codes
 
@@ -59,20 +59,20 @@ irsz_posta_2018 <- bind_rows(
     telepules = if_else(irsz == "1007", "Budapest", telepules)
   ) %>%
   select(-telepulesresz) %>%
-  group_by(telepules) %>%
-  nest(.key = "irsz")
+  nest(irsz = c(irsz))
 
 
 # Postal codes from the Gazetteer
 
 # Regular
 
-hnt_irsz_2018_kieg <- read_excel(
-  path = "data-raw/hnt_2018.xls",
-  sheet = "Megj. postai ir. számhoz",
-  col_types = "text"
-) %>%
-  clean_names %>%
+hnt_irsz_2018_kieg <-
+  read_excel(
+    path = "data-raw/hnt_2018.xls",
+    sheet = "Megj. postai ir. számhoz",
+    col_types = "text"
+  ) %>%
+  clean_names() %>%
   rename(torzsszam = helyseg_ksh_kod) %>%
   mutate(
     torzsszam = str_pad(torzsszam, width = 5, pad = "0")
@@ -82,7 +82,7 @@ hnt_irsz_2018_kieg <- read_excel(
     irsz = str_extract_all(megjegyzes_a_postai_iranyitoszamhoz, "\\d{4}")
   ) %>%
   select(-megjegyzes_a_postai_iranyitoszamhoz) %>%
-  unnest
+  unnest(cols = c(irsz))
 
 # Street address based ones
 
@@ -92,8 +92,8 @@ hnt_telepulesreszek_2018 <- hnt_telepulesreszek_2018 %>%
   select(torzsszam, telepules, irsz, kulterulet_jellege) %>%
   mutate(
     kulterulet = !is.na(kulterulet_jellege),
-    # In Budapesten all postal codes are address based, so we don't
-    # have to deal with non--built-up areeas.
+    # In Budapest all postal codes are address based, so we don't
+    # have to deal with non--built-up areas.
     kulterulet = replace(
       kulterulet,
       str_detect(telepules, "Budapest"),
@@ -101,7 +101,7 @@ hnt_telepulesreszek_2018 <- hnt_telepulesreszek_2018 %>%
     )
   ) %>%
   select(-kulterulet_jellege) %>%
-  distinct %>%
+  distinct() %>%
   # Zalaszentgrót has a settlement part with a duplicated postal code.
   # Both postal codes are used on other parts of the settlement, so we
   # can drop it.
@@ -119,10 +119,9 @@ hnt_irsz_2018 <- hnt_telepulesreszek_2018 %>%
   arrange(torzsszam) %>%
   group_by(torzsszam) %>%
   fill(telepules) %>%
-  ungroup %>%
+  ungroup() %>%
   arrange(telepules) %>%
-  group_by(torzsszam, telepules) %>%
-  nest(.key = "irsz")
+  nest(irsz = c(irsz))
 
 
 # Merging the Post Office's and the Statistical Office's data
@@ -153,8 +152,8 @@ irsz_2018 <- hnt_irsz_2018 %>%
     irsz = map(irsz, collapse_irsz)
   ) %>%
   select(-irsz.x, -irsz.y) %>%
-  unnest %>%
-  ungroup %>%
+  unnest(cols = c(irsz)) %>%
+  ungroup() %>%
   arrange(torzsszam, irsz)
 
 
