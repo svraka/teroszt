@@ -5,7 +5,7 @@
 \alias{irsz_2018}
 \title{Postal codes and settlements (2018)}
 \format{
-A tibble with 3,882 rows, which gives a crosswalk between
+A tibble with 3,849 rows, which gives a crosswalk between
   all the valid postal codes in the Hungarian Postal Service's
   database, and settlement and county IDs.
 

@@ -67,7 +67,7 @@
 #' codes (\sQuote{\emph{ir}ányító\emph{sz}ám}) and the HCSO's
 #' settlement and county IDs.
 #'
-#' @format A tibble with 3,882 rows, which gives a crosswalk between
+#' @format A tibble with 3,849 rows, which gives a crosswalk between
 #'   all the valid postal codes in the Hungarian Postal Service's
 #'   database, and settlement and county IDs.
 #'

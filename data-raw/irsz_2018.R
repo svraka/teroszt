@@ -138,7 +138,8 @@ irsz_2018_prep <- hnt_irsz_2018 %>%
   unnest(cols = c(irsz)) %>%
   ungroup() %>%
   distinct(torzsszam, telepules, irsz) %>%
-  arrange(torzsszam, irsz)
+  arrange(torzsszam, irsz) %>%
+  filter(!is.na(irsz))
 
 load("data/tsz_2018.rda")
 load("data/hnt_telepulesreszek_2018.rda")
@@ -229,6 +230,9 @@ irsz_2018_check <- irsz_2018 %>%
   summarise(ell = length(unique(megye)), .groups = "drop") %>%
   filter(ell != 1)
 stopifnot(nrow(irsz_2018_check) == 0)
+
+stopifnot(all(!is.na(irsz_2018$irsz)))
+stopifnot(all(!is.na(irsz_2018$megye)))
 
 # Saving
 
