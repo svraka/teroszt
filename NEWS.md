@@ -1,3 +1,15 @@
+# teroszt 0.4.0: Postal code crosswalks
+
+## New data
+
+  * Add county ID to `irsz_2018`. As settlements can share postal codes, a row crosswalk between `irsz_2018` and `tsz_2018` is ambiguous. Most overlaps happen in parts of settlements with low-populations in non-central, or even non--build-up areas. This column contains a manually cleaned county ID, where every postal code is classified into an unambiguous county, based on the main settlement that uses a particular postal code.
+
+## Miscellaneous
+
+  * Translated all documentation to English in preparation for a future CRAN release.
+  * Various documentation fixes.
+  * Set up GitHub Actions.
+
 # teroszt 0.3.0: Geospatial data
 
 ## New data
