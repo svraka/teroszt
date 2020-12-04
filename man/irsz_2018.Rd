@@ -5,7 +5,7 @@
 \alias{irsz_2018}
 \title{Postal codes and settlements (2018)}
 \format{
-A tibble with 3,849 rows, which gives a crosswalk between
+A tibble with 4,395 rows, which gives a crosswalk between
   all the valid postal codes in the Hungarian Postal Service's
   database, and settlement and county IDs.
 
@@ -14,14 +14,14 @@ A tibble with 3,849 rows, which gives a crosswalk between
     (\sQuote{településazonosító törzsszám})}
   \item{telepules}{Name of the settlement}
   \item{irsz}{Postal code}
-  \item{megye}{County code, see \link{tsz_2018}}. As settlements
+  \item{megye}{County code, see \link{tsz_2018}. As settlements
     can share postal codes, a row crosswalk between \code{irsz_2018}
     and \link{tsz_2018} is ambiguous. Most overlaps happen in
     parts of settlements with low-populations in non-central, or
     even non--build-up areas. This column contains a manually
     cleaned county ID, where every postal code is classified into
     an unambiguous county, based on the main settlement that uses a
-    particular postal code.
+    particular postal code.}
 }
 }
 \source{
@@ -33,8 +33,15 @@ The present content was prepared using the Detailed
 
 The source of the postal codes is Hungarian Postal Service's
 (\sQuote{Magyar Posta Zrt.}) website:
-(\url{https://www.posta.hu/szolgaltatasok/iranyitoszam-kereso}).
-Downloaded at 5 April 2019.
+
+\itemize{
+  \item{
+    \url{https://www.posta.hu/szolgaltatasok/iranyitoszam-kereso},
+    downloaded at 5 April 2019)}
+  \item{
+    \url{https://www.posta.hu/static/internet/download/Allando_postai_szolgaltatohelyek.xlsx},
+    downloaded at 12 August 2020}
+}
 }
 \usage{
 irsz_2018
@@ -45,8 +52,12 @@ codes (\sQuote{\emph{ir}ányító\emph{sz}ám}) and the HCSO's
 settlement and county IDs.
 }
 \details{
+Postal codes include regular codes (used in towns and
+  villages), street address based codes (used in cities), and codes
+  for post offices (including mobile offices).
+
 Note that postal codes also cross district level boundaries.
-  Classifying postal codes into administrative divisions below
-  counties requires further data cleaning at this time.
+Classifying postal codes into administrative divisions below
+counties requires further data cleaning at this time.
 }
 \keyword{datasets}

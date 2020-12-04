@@ -28,37 +28,77 @@ irsz_posta_2018_utcajegyzekbol <- excel_sheets(irsz_posta_file) %>%
     ~read_excel(irsz_posta_file, sheet = ., col_types = "text") %>% clean_names,
     .id = "telepules"
   ) %>%
-  select(telepules, irsz) %>%
+  select(telepules, irsz, ker) %>%
   distinct() %>%
   mutate(
     telepules = str_remove(telepules, re_utca),
-    telepules = str_replace(telepules, "^Bp$", "Budapest")
+    ker_int = if_else(ker %in% c("Margitsziget", "0"), NA_character_, ker),
+    ker_int = str_remove(ker_int, "\\.") %>% as.roman() %>% as.integer(),
+    ker_int = str_pad(ker_int, width = 2, side = "left", pad = "0"),
+    telepules = case_when(
+      telepules == "Bp" & !is.na(ker_int) ~ sprintf("Budapest %s. ker.", ker_int),
+      telepules == "Bp" & is.na(ker_int)  ~ "Budapest",
+      TRUE                                ~ telepules
+    )
   ) %>%
+  select(-ker, -ker_int) %>%
   arrange_all()
+
+# Post office addresses
+
+# Convert Budapest districts' names to arabic numerals
+convert_kerulet <- function(x) {
+  string_roman <- x %>%
+    str_extract("Budapest\\ .+\\.\\ ker\\.$") %>%
+    str_replace("Budapest\\ (.+)\\.\\ ker\\.$", "\\1")
+
+  arabic <- string_roman %>% as.roman %>% as.integer
+  padded <- str_pad(arabic, width = 2, pad = "0")
+  string <- str_c("Budapest ", padded, ". ker.")
+
+  string
+}
+
+irsz_postahivatalok <-
+  read_excel(
+    path = here::here("data-raw", "Allando_postai_szolgaltatohelyek.xlsx"),
+    guess_max = 10000
+  ) %>%
+  clean_names() %>%
+  select(
+    telepules = x_a_telepules,
+    nev = x_b_postai_szolgaltatohely_megnevezese_illetve_a_szolgaltatas_ellatasanak_modja,
+    irsz = x_c_iranyitoszam,
+    cim = x_d_kozelebbi_cim
+  ) %>%
+  mutate(irsz = as.character(as.integer(irsz)),
+         telepules = if_else(str_detect(telepules, "Budapest"),
+                             convert_kerulet(telepules), telepules),
+         # Definitely typo
+         irsz = if_else(telepules == "Monyoród", "7751", irsz),
+         # Likely typo
+         irsz = if_else(telepules == "Lúzsok", "7838", irsz),
+         # Maybe typo?
+         irsz = if_else(telepules == "Szalmatercs", "3163", irsz)) %>%
+  distinct(telepules, irsz)
+
 
 # Constructing all valid postal codes
 
 irsz_posta_2018 <- bind_rows(
     irsz_posta_2018_sima,
-    irsz_posta_2018_utcajegyzekbol
+    irsz_posta_2018_utcajegyzekbol,
+    irsz_postahivatalok
   ) %>%
   arrange(irsz) %>%
   mutate(
     # Unify Budapest districts names with the Gazetteer's form
-    telepules = if_else(
-      telepules == "Budapest",
-      str_c(
-        telepules,
-        str_replace(irsz, "\\d(\\d{2})\\d", "\\1."),
-        "kerület",
-        sep = " "
-      ),
-      telepules
-    ),
-    # Margit-szigetnek in Budapest has its own postal code
-    telepules = if_else(irsz == "1007", "Budapest", telepules)
+    telepules = str_replace(telepules,
+                            "(Budapest\\ \\d+\\.\\ )ker\\.",
+                            "\\1kerület")
   ) %>%
   select(-telepulesresz) %>%
+  distinct() %>%
   nest(irsz = c(irsz))
 
 
