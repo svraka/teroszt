@@ -13,7 +13,7 @@ hnt_telepulesreszek_2018_kulterulet_jellege <- read_excel(
     sheet = "Külterület települési jellege",
     col_types = "text"
   ) %>%
-  clean_names %>%
+  clean_names() %>%
   rename(
     kulterulet_jellege = rovidites,
     kulterulet_jellege_nev = kulterulet_telepulesi_jellege,
@@ -36,7 +36,7 @@ hnt_telepulesreszek_2018 <- read_excel(
     sheet = "Településrészek 2018. 01. 01.",
     col_types = "text"
   ) %>%
-  clean_names %>%
+  clean_names() %>%
   select(-megye_kodja) %>%
   rename(
     torzsszam = helyseg_ksh_kod,

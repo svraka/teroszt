@@ -211,7 +211,8 @@ irsz_torzsszam_jav_kapcs <- irsz_torzsszam_jav %>%
   select(-torzsszam)
 
 irsz_2018 <- irsz_2018_prep %>%
-  left_join(tsz_2018 %>% distinct(torzsszam, megye), by = "torzsszam") %>%
+  left_join(tsz_2018 %>% distinct(torzsszam, megye),
+            by = "torzsszam") %>%
   left_join(irsz_torzsszam_jav_kapcs, by = "irsz") %>%
   mutate(megye = coalesce(megye_jav, megye)) %>%
   select(torzsszam, telepules, irsz, megye) %>%

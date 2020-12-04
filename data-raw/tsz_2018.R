@@ -9,7 +9,7 @@ library(janitor, warn.conflicts = FALSE)
 tsz_2018 <- read_excel(
     path = "data-raw/teruleti_szamjelrendszer_struktura_elemei_2018.xlsx"
   ) %>%
-  clean_names
+  clean_names()
 
 
 # Helper table with the main classifications' labels
@@ -17,7 +17,7 @@ tsz_2018 <- read_excel(
 tsz_2018_megnevezessel <- read_excel(
     path = "data-raw/teruleti_szamjelrendszer_struktura_elemei_2018_megnevezesekkel.xlsx"
   ) %>%
-  clean_names %>%
+  clean_names() %>%
   # Uniform names
   rename(
     telepules_azonosito_torzsszam = telepules_azonosito_torzsszam_telepuleskod
@@ -63,7 +63,6 @@ tsz_2018 <- tsz_2018 %>%
     kedvezmenyezett_telepules = kedvezmenyezett_telepulesek_kodja,
     kedvezmenyezett_jaras = kedvezmenyezett_jarasok_kodja,
     szabad_vallalkozasi_zona = szabad_vallalkozasi_zonak
-
   )
 
 
