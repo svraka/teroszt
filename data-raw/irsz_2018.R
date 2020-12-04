@@ -107,10 +107,7 @@ hnt_telepulesreszek_2018 <- hnt_telepulesreszek_2018 %>%
   # can drop it.
   filter(irsz != "8790/8795") %>%
   mutate(irsz = if_else(irsz == "*", NA_character_, irsz)) %>%
-  # Flag the settlement parts which have their own postal codes and
-  # this codes is only used by this part.
-  group_by(torzsszam, telepules, irsz) %>%
-  summarise(csak_kulterulet = as.logical(min(kulterulet)))
+  distinct(torzsszam, telepules, irsz)
 
 # Merging
 
@@ -133,29 +130,104 @@ stopifnot(nrow(irsz_posta_2018) == nrow(hnt_irsz_2018))
 # All settlement have pairs based on names but postal codes can
 # differ. Here we unify them.
 
-collapse_irsz <- function(df) {
-  df %>%
-    filter(!is.na(irsz)) %>%
-    mutate(
-      csak_kulterulet = replace_na(csak_kulterulet, FALSE)
-    ) %>%
-    group_by(irsz) %>%
-    summarise(csak_kulterulet = as.logical(min(csak_kulterulet)))
-}
-
-
-irsz_2018 <- hnt_irsz_2018 %>%
+irsz_2018_prep <- hnt_irsz_2018 %>%
   full_join(irsz_posta_2018, by = "telepules") %>%
   group_by(torzsszam, telepules) %>%
-  mutate(
-    irsz = map2(irsz.x, irsz.y, bind_rows),
-    irsz = map(irsz, collapse_irsz)
-  ) %>%
+  mutate(irsz = map2(irsz.x, irsz.y, bind_rows)) %>%
   select(-irsz.x, -irsz.y) %>%
   unnest(cols = c(irsz)) %>%
   ungroup() %>%
+  distinct(torzsszam, telepules, irsz) %>%
   arrange(torzsszam, irsz)
 
+load("data/tsz_2018.rda")
+load("data/hnt_telepulesreszek_2018.rda")
+
+# Find all settlements that have boroughs reaching across county
+# boundaries. This leaves out overlaps that do not come up in the
+# Gazetteer but we can assume those should not be problematic.
+#
+# TODO: The same logic can be applied to postcodes crossing district,
+# or even settlement boundaries but that requires more manual
+# checking.
+
+problemas_megye <- irsz_2018_prep %>%
+  left_join(
+    tsz_2018 %>% select(torzsszam, megye, megye_nev),
+    by = "torzsszam"
+  ) %>%
+  # In Budapest all the potential problems arise from NA and `*`
+  # postcodes, and we don't have to deal with that here.
+  filter(!str_detect(telepules, "Budapest")) %>%
+  distinct(torzsszam, telepules, irsz, megye, megye_nev) %>%
+  group_by(irsz) %>%
+  mutate(problema = length(unique(megye))) %>%
+  ungroup() %>%
+  filter(problema != 1) %>%
+  arrange(irsz) %>%
+  distinct(torzsszam) %>%
+  left_join(full_join(hnt_telepulesreszek_2018,
+                      hnt_irsz_2018 %>% unnest(cols = irsz),
+                      by = c("torzsszam", "telepules", "irsz")),
+            by = "torzsszam") %>%
+  left_join(tsz_2018 %>% distinct(torzsszam, megye, megye_nev),
+            by = "torzsszam") %>%
+  select(torzsszam, telepules, megye, megye_nev, telepulesresz_jelleg,
+         irsz, nepesseg = nepszamlalasi_lakonepesseg) %>%
+  arrange(irsz, telepules) %>%
+  select(irsz, telepules, everything()) %>%
+  group_by(irsz, telepules, torzsszam, telepulesresz_jelleg, megye, megye_nev) %>%
+  summarise(n_telepulesresz = n(),
+            nepesseg = sum(nepesseg, na.rm = TRUE),
+            .groups = "drop") %>%
+  group_by(irsz) %>%
+  mutate(problemas = length(unique(torzsszam))) %>%
+  ungroup() %>%
+  filter(problemas != 1)
+
+# And set a settlement for these problematic postcodes for the purpose
+# of postcode-county crosswalks.
+irsz_torzsszam_jav <- problemas_megye %>%
+  select(-problemas) %>%
+  arrange(irsz, desc(nepesseg)) %>%
+  mutate(fo_telepules_kozponti = if_else(telepulesresz_jelleg == "Központi belterület",
+                                         torzsszam, "00000"),
+         fo_telepules_egyeb = if_else(telepulesresz_jelleg == "Egyéb belterület",
+                                      torzsszam, "00000")) %>%
+  group_by(irsz) %>%
+  mutate(fo_telepules_kozponti = max(fo_telepules_kozponti, na.rm = TRUE),
+         fo_telepules_egyeb = max(fo_telepules_egyeb, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(torzsszam_fo_telepules = fo_telepules_kozponti,
+         torzsszam_fo_telepules = if_else(torzsszam_fo_telepules == "00000",
+                                          fo_telepules_egyeb,
+                                          fo_telepules_kozponti)) %>%
+  select(-fo_telepules_kozponti, -fo_telepules_egyeb)
+
+irsz_torzsszam_jav_kapcs <- irsz_torzsszam_jav %>%
+  distinct(irsz, torzsszam = torzsszam_fo_telepules) %>%
+  left_join(tsz_2018 %>% distinct(torzsszam, megye_jav = megye),
+            by = "torzsszam") %>%
+  select(-torzsszam)
+
+irsz_2018 <- irsz_2018_prep %>%
+  left_join(tsz_2018 %>% distinct(torzsszam, megye), by = "torzsszam") %>%
+  left_join(irsz_torzsszam_jav_kapcs, by = "irsz") %>%
+  mutate(megye = coalesce(megye_jav, megye)) %>%
+  select(torzsszam, telepules, irsz, megye) %>%
+  # Manual fixes:
+  #
+  # Lőrinci and Héhalom share postcodes in two non--build-up areas.
+  # Keep Héhalom's county, as that is a proper settlement part.
+  mutate(megye = if_else(irsz == "3024", "12", megye))
+
+# Check that we fixed all problems in post codes crossing county
+# boundaries.
+irsz_2018_check <- irsz_2018 %>%
+  group_by(irsz) %>%
+  summarise(ell = length(unique(megye)), .groups = "drop") %>%
+  filter(ell != 1)
+stopifnot(nrow(irsz_2018_check) == 0)
 
 # Saving
 

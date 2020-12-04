@@ -5,20 +5,23 @@
 \alias{irsz_2018}
 \title{Postal codes and settlements (2018)}
 \format{
-A tibble with 3,859 rows, which gives a crosswalk between
+A tibble with 3,882 rows, which gives a crosswalk between
   all the valid postal codes in the Hungarian Postal Service's
-  database and settlement IDs.
+  database, and settlement and county IDs.
 
 \describe{
   \item{torzsszam}{The settlement's HCSO ID number
     (\sQuote{településazonosító törzsszám})}
   \item{telepules}{Name of the settlement}
   \item{irsz}{Postal code}
-  \item{csak_kulterulet}{Some settlements share postal codes. This
-    column flags if a postal code within a settlement only covers area
-    outside a built-up area (\sQuote{külterület}). This is intended
-    to help classifying postal codes into administrative divisions in
-    case the postal code is ambiguous.}
+  \item{megye}{County code, see \link{tsz_2018}}. As settlements
+    can share postal codes, a row crosswalk between \code{irsz_2018}
+    and \link{tsz_2018} is ambiguous. Most overlaps happen in
+    parts of settlements with low-populations in non-central, or
+    even non--build-up areas. This column contains a manually
+    cleaned county ID, where every postal code is classified into
+    an unambiguous county, based on the main settlement that uses a
+    particular postal code.
 }
 }
 \source{
@@ -39,12 +42,11 @@ irsz_2018
 \description{
 A crosswalk table connecting Hungarian Postal Service's postal
 codes (\sQuote{\emph{ir}ányító\emph{sz}ám}) and the HCSO's
-settlement IDs.
+settlement and county IDs.
 }
 \details{
-Note that postal codes cross district and county level,
-  and even regional boundries. Classifying postal codes into
-  administrative divsions requires further data cleaning at this
-  time.
+Note that postal codes also cross district level boundaries.
+  Classifying postal codes into administrative divisions below
+  counties requires further data cleaning at this time.
 }
 \keyword{datasets}
