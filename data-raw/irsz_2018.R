@@ -3,8 +3,6 @@ library(stringr)
 library(purrr)
 library(readxl)
 library(tidyr)
-library(janitor, warn.conflicts = FALSE)
-
 
 
 # Postal code from the Post Office
@@ -13,8 +11,11 @@ irsz_posta_file <- "data-raw/iranyitoszam_2019-01-15.xlsx"
 
 # Regular postal codes
 
-irsz_posta_2018_sima <- read_excel(irsz_posta_file, col_types = "text") %>%
-  clean_names() %>%
+irsz_posta_2018_sima <-
+  read_excel(irsz_posta_file,
+             col_names = c("irsz", "telepules", "telepulesresz"),
+             skip = 2,
+             col_types = "text") %>%
   mutate(telepules = str_remove(telepules, "\\*"))
 
 # Postal codes based on street addresses (for large cities)
@@ -25,10 +26,11 @@ irsz_posta_2018_utcajegyzekbol <- excel_sheets(irsz_posta_file) %>%
   str_subset(re_utca) %>%
   set_names() %>%
   map_dfr(
-    ~read_excel(irsz_posta_file, sheet = ., col_types = "text") %>% clean_names,
+    ~ read_excel(irsz_posta_file, sheet = ., col_types = "text"),
     .id = "telepules"
   ) %>%
-  select(telepules, irsz, ker) %>%
+  select(telepules, IRSZ, KER) %>%
+  rename_with(.fn = tolower, .cols = everything()) %>%
   distinct() %>%
   mutate(
     telepules = str_remove(telepules, re_utca),
@@ -64,13 +66,8 @@ irsz_postahivatalok <-
     path = here::here("data-raw", "Allando_postai_szolgaltatohelyek.xlsx"),
     guess_max = 10000
   ) %>%
-  clean_names() %>%
-  select(
-    telepules = x_a_telepules,
-    nev = x_b_postai_szolgaltatohely_megnevezese_illetve_a_szolgaltatas_ellatasanak_modja,
-    irsz = x_c_iranyitoszam,
-    cim = x_d_kozelebbi_cim
-  ) %>%
+  select(1, 3, 4, 5) %>%
+  set_names(c("telepules", "nev", "irsz", "cim")) %>%
   mutate(irsz = as.character(as.integer(irsz)),
          telepules = if_else(str_detect(telepules, "Budapest"),
                              convert_kerulet(telepules), telepules),
@@ -110,10 +107,10 @@ hnt_irsz_2018_kieg <-
   read_excel(
     path = "data-raw/hnt_2018.xls",
     sheet = "Megj. postai ir. számhoz",
+    col_names = c("torzsszam", "megjegyzes_a_postai_iranyitoszamhoz"),
+    skip = 1,
     col_types = "text"
   ) %>%
-  clean_names() %>%
-  rename(torzsszam = helyseg_ksh_kod) %>%
   mutate(
     torzsszam = str_pad(torzsszam, width = 5, pad = "0")
   ) %>%

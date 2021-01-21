@@ -21,7 +21,6 @@ Imports:
 Suggests:
     dplyr,
     forcats,
-    janitor,
     readxl,
     tidyr,
     usethis

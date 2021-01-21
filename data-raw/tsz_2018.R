@@ -1,23 +1,46 @@
 library(dplyr, warn.conflicts = FALSE)
 library(tidyr)
 library(readxl)
-library(janitor, warn.conflicts = FALSE)
 
 
 # Main table
 
 tsz_2018 <- read_excel(
-    path = "data-raw/teruleti_szamjelrendszer_struktura_elemei_2018.xlsx"
-  ) %>%
-  clean_names()
+  path = "data-raw/teruleti_szamjelrendszer_struktura_elemei_2018.xlsx",
+  col_names = c("telepules_azonosito_torzsszam", "nev",
+                "teruleti_jelzoszam", "jogallas_2005",
+                "statisztikai_nagyregio_kodja", "regio_2016",
+                "nuts_16", "jaras_kod", "jaras_kozpont_kodja",
+                "agglomeracio_kodja",
+                "polgarmesteri_hivatal_kozos_onkormanyzati_hivatal_kodja",
+                "polgarmesteri_hivatal_kozos_onkormanyzati_hivatal_szekhelyenek_kodja",
+                "mezogazdasagi_tajkorzet", "borregio", "borvidek_09",
+                "turisztikai_regio", "vilagoroksegi_helyszinek",
+                "vilagoroksegi_helyszinek_vedoovezete",
+                "nemzeti_parkok",
+                "falusi_szallasadas_lehetseges_helyszinei",
+                "kedvezmenyezett_telepulesek_kodja",
+                "kedvezmenyezett_jarasok_kodja",
+                "szabad_vallalkozasi_zonak",
+                "teruletfejlesztesi_szempontbol_kiemelt_terseg"),
+  skip = 1
+)
 
 
 # Helper table with the main classifications' labels
 
-tsz_2018_megnevezessel <- read_excel(
-    path = "data-raw/teruleti_szamjelrendszer_struktura_elemei_2018_megnevezesekkel.xlsx"
+tsz_2018_megnevezessel <-
+  read_excel(
+    path = "data-raw/teruleti_szamjelrendszer_struktura_elemei_2018_megnevezesekkel.xlsx",
+    col_names = c("telepules_azonosito_torzsszam_telepuleskod", "nev",
+                  "teruleti_jelzoszam",
+                  "teruleti_jelzoszambol_kepzett_megyekod", "megyenev",
+                  "jogallas_2005", "jogallas_2005_megnevezese",
+                  "statisztikai_nagyregio_kodja",
+                  "statisztikai_nagyregio_neve", "regio_2016_kodja",
+                  "regio_neve", "jaras_kod", "jaras_neve"),
+    skip = 1
   ) %>%
-  clean_names() %>%
   # Uniform names
   rename(
     telepules_azonosito_torzsszam = telepules_azonosito_torzsszam_telepuleskod

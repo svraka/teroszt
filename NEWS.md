@@ -9,7 +9,11 @@
 
   * Translated all documentation to English in preparation for a future CRAN release.
   * Various documentation fixes.
+
+## Internals
+
   * Set up GitHub Actions.
+  * Removed build dependency on **janitor**. We used it only for the `clean_names()` function to automatically clean column names in Excel files. However, its results can change, therefore we explicitly name all columns while reading Excel-files.
 
 # teroszt 0.3.0: Geospatial data
 
