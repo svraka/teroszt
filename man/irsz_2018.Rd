@@ -15,7 +15,7 @@ A tibble with 4,395 rows, which gives a crosswalk between
   \item{telepules}{Name of the settlement}
   \item{irsz}{Postal code}
   \item{megye}{County code, see \link{tsz_2018}. As settlements
-    can share postal codes, a row crosswalk between \code{irsz_2018}
+    can share postal codes, a raw crosswalk between \code{irsz_2018}
     and \link{tsz_2018} is ambiguous. Most overlaps happen in
     parts of settlements with low-populations in non-central, or
     even non--build-up areas. This column contains a manually

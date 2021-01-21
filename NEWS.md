@@ -2,7 +2,7 @@
 
 ## New data
 
-  * Add county ID to `irsz_2018`. As settlements can share postal codes, a row crosswalk between `irsz_2018` and `tsz_2018` is ambiguous. Most overlaps happen in parts of settlements with low-populations in non-central, or even non--build-up areas. This column contains a manually cleaned county ID, where every postal code is classified into an unambiguous county, based on the main settlement that uses a particular postal code.
+  * Add county ID to `irsz_2018`. As settlements can share postal codes, a raw crosswalk between `irsz_2018` and `tsz_2018` is ambiguous. Most overlaps happen in parts of settlements with low-populations in non-central, or even non--build-up areas. This column contains a manually cleaned county ID, where every postal code is classified into an unambiguous county, based on the main settlement that uses a particular postal code.
   * Add postal codes based on post office addresses to `irsz_2018`.
 
 ## Miscellaneous
