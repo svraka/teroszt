@@ -140,8 +140,8 @@ hnt_telepulesreszek_2018 <- hnt_telepulesreszek_2018 %>%
   select(-kulterulet_jellege) %>%
   distinct() %>%
   # Zalaszentgrót has a settlement part with a duplicated postal code.
-  # Both postal codes are used on other parts of the settlement, so we
-  # can drop it.
+  # Both postal codes are used on other parts of the settlement, and
+  # only used in Zalaszentgrót, so we can drop it.
   filter(irsz != "8790/8795") %>%
   mutate(irsz = if_else(irsz == "*", NA_character_, irsz)) %>%
   distinct(torzsszam, telepules, irsz)
