@@ -65,34 +65,36 @@
 #'
 #' A crosswalk table connecting Hungarian Postal Service's postal
 #' codes (\sQuote{\emph{ir}ányító\emph{sz}ám}) and the HCSO's
-#' settlement and county IDs.
+#' settlement IDs.
 #'
 #' @format A tibble with 4,395 rows, which gives a crosswalk between
 #'   all the valid postal codes in the Hungarian Postal Service's
-#'   database, and settlement and county IDs.
+#'   database, and settlement IDs.
 #'
 #' \describe{
 #'   \item{torzsszam}{The settlement's HCSO ID number
 #'     (\sQuote{településazonosító törzsszám})}
 #'   \item{telepules}{Name of the settlement}
 #'   \item{irsz}{Postal code}
-#'   \item{megye}{County code, see \link{tsz_2018}. As settlements
+#'   \item{torzsszam_fo_telepules}{Settlement ID number for the primary
+#'     settlement using a postal code. As settlements
 #'     can share postal codes, a raw crosswalk between \code{irsz_2018}
 #'     and \link{tsz_2018} is ambiguous. Most overlaps happen in
 #'     parts of settlements with low-populations in non-central, or
-#'     even non--build-up areas. This column contains a manually
-#'     cleaned county ID, where every postal code is classified into
-#'     an unambiguous county, based on the main settlement that uses a
-#'     particular postal code.}
+#'     even non--build-up areas. This column contains a unique settlement ID
+#'     for each postal code belonging to settlement most likely to be
+#'     representative of that postal code. Classification is
+#'     based on borough types (preferring central over, non-central)
+#'     and the boroughs' population sizes.}
 #' }
 #'
 #' @details Postal codes include regular codes (used in towns and
 #'   villages), street address based codes (used in cities), and codes
 #'   for post offices (including mobile offices).
 #'
-#' Note that postal codes also cross district level boundaries.
-#' Classifying postal codes into administrative divisions below
-#' counties requires further data cleaning at this time.
+#' Note that postal codes can cross settlement boundaries, therefore
+#' using \code{torzsszam_fo_telepules} can lead to some
+#' misclassification.
 #'
 #' @source The present content was prepared using the Detailed
 #'   Gazetteer of the Hungarian Central Statistical Office
