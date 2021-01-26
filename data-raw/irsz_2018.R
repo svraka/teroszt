@@ -275,46 +275,16 @@ stopifnot(intersect(irsz_partitions[[2]], irsz_partitions[[3]]) == character(0))
 # Apply futher cleaning
 irsz_2018_fixed <- irsz_2018_tofix
 
-# Find the primary settlement that ises a particular post code for the
-# case when we have multiple boroughs from the Gazetteer. First we
-# define our strategy for fixing issues in a helper table.
-javitas_modja <- irsz_2018_tofix$jav_hnt %>%
-  count(irsz, telepulesresz_jelleg) %>%
-  arrange(irsz, telepulesresz_jelleg) %>%
-  mutate(telepulesresz_jelleg = fct_recode(telepulesresz_jelleg,
-                                           "kb" = "Központi belterület",
-                                           "eb" = "Egyéb belterület",
-                                           "k"  = "Külterület")) %>%
-  pivot_wider(id_cols = irsz,
-              names_from = telepulesresz_jelleg, names_prefix = "n_",
-              values_from = n, values_fill = 0) %>%
-  mutate(javitas_modja = case_when(
-    # Take the central borough with the largest population
-    n_kb >= 1             ~ 1,
-    # Take the non-central borough with the largest population
-    n_kb == 0 & n_eb >= 1 ~ 2,
-    # Take the non--built-up area with the largest population
-    n_kb == 0 & n_eb == 0 ~ 3))
-# And implement the strategy.
-jav_hnt <- irsz_2018_fixed$jav_hnt %>%
-  select(-problemas) %>%
-  left_join(javitas_modja %>% select(irsz, javitas_modja),
-            by = "irsz") %>%
-  mutate(fo_telepules_kozponti = if_else(telepulesresz_jelleg == "Központi belterület",
-                                         torzsszam, "00000"),
-         fo_telepules_egyeb = if_else(telepulesresz_jelleg == "Egyéb belterület",
-                                      torzsszam, "00000")) %>%
-  arrange(irsz, telepulesresz_jelleg, desc(nepesseg)) %>%
+# Find the primary settlement -- based on population size -- that uses
+# a particular post code for the case when we have multiple boroughs
+# from the Gazetteer.
+irsz_2018_fixed$jav_hnt <- irsz_2018_tofix$jav_hnt %>%
+  arrange(irsz, desc(nepesseg)) %>%
   group_by(irsz) %>%
-  mutate(torzsszam_fo_telepules = case_when(
-    javitas_modja == 1 ~ head(fo_telepules_kozponti, 1),
-    javitas_modja == 2 ~ head(fo_telepules_egyeb, 1),
-    javitas_modja == 3 ~ head(torzsszam, 1))) %>%
+  mutate(torzsszam_fo_telepules = head(torzsszam, 1)) %>%
   ungroup() %>%
-  select(torzsszam, telepules, irsz, torzsszam_fo_telepules)
-
-irsz_2018_fixed$jav_hnt <- jav_hnt %>%
-  distinct(irsz, torzsszam, telepules, torzsszam_fo_telepules)
+  select(torzsszam, telepules, irsz, torzsszam_fo_telepules) %>%
+  distinct(torzsszam, telepules, irsz, torzsszam_fo_telepules)
 
 # We already did all the cleaning when reading the post office table,
 # we just need to add IDs
