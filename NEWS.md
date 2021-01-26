@@ -12,6 +12,9 @@
     boroughs' population sizes (#4).
   * Add postal codes based on post office addresses to `irsz_2018`. This extends
     the number of postal codes covered in `irsz_2018` (#5).
+  * Add `get_irsz_tsz_crosswalk()`, a helper function to transform `irsz_2018`
+    (and similar crosswalk tables in the future) into an unambiguous postal code
+    to settlement ID crosswalk.
 
 ## Miscellaneous
 

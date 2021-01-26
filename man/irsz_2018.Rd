@@ -59,8 +59,13 @@ Postal codes include regular codes (used in towns and
   villages), street address based codes (used in cities), and codes
   for post offices (including mobile offices).
 
-Note that postal codes can cross settlement boundaries, therefore
-using \code{torzsszam_fo_telepules} can lead to some
-misclassification.
+Note that this table links all possible postal codes to all settlements using
+a particular postal code. To get an unambiguous crosswalk from postal codes
+to settlement IDs, use \code{\link{get_irsz_tsz_crosswalk}} to aggregate this
+table. As postal codes can cross settlement (and district, county, and even
+regional) boundaries, this can lead to some misclassification.
+}
+\seealso{
+\code{\link{get_irsz_tsz_crosswalk}}
 }
 \keyword{datasets}

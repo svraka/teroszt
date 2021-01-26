@@ -3,6 +3,8 @@
 #' @keywords internal
 "_PACKAGE"
 
+utils::globalVariables("irsz_2018")
+
 #' 2018 edition of the territorial code system
 #'
 #' A dataset with the 2018 edition of the Hungarian Central
@@ -93,9 +95,13 @@
 #'   villages), street address based codes (used in cities), and codes
 #'   for post offices (including mobile offices).
 #'
-#' Note that postal codes can cross settlement boundaries, therefore
-#' using \code{torzsszam_fo_telepules} can lead to some
-#' misclassification.
+#' Note that this table links all possible postal codes to all settlements using
+#' a particular postal code. To get an unambiguous crosswalk from postal codes
+#' to settlement IDs, use \code{\link{get_irsz_tsz_crosswalk}} to aggregate this
+#' table. As postal codes can cross settlement (and district, county, and even
+#' regional) boundaries, this can lead to some misclassification.
+#'
+#' @seealso \code{\link{get_irsz_tsz_crosswalk}}
 #'
 #' @source The present content was prepared using the Detailed
 #'   Gazetteer of the Hungarian Central Statistical Office
