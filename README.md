@@ -6,7 +6,7 @@
 
 <!-- badges: end -->
 
-This package provides data for Hungarian statistical and administrative divisions and crosswalks among them.
+This package provides data for Hungarian statistical and administrative divisions and crosswalks between them.
 
   * The Hungarian Central Statistical Office's (HCSO) [territorial code system](https://www.ksh.hu/tszJ_eng_menu) ([*Területi számjelrendszer*](http://www.ksh.hu/teruleti_szamjel_menu))
   * [Detailed Gazetteer](http://www.ksh.hu/apps/hntr.main?p_lang=EN) ([*Helységnévtár*](http://www.ksh.hu/apps/hntr.main))

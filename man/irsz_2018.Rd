@@ -7,7 +7,8 @@
 \format{
 A tibble with 4,395 rows, which gives a crosswalk between
   all the valid postal codes in the Hungarian Postal Service's
-  database, and settlement IDs.
+  database, and settlement IDs for all settlements that share a
+  postal code.
 
 \describe{
   \item{torzsszam}{The settlement's HCSO ID number
