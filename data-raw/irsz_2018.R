@@ -102,6 +102,8 @@ irsz_postahivatalok <-
   mutate(postahivatal_fo_telepules = if_else(irsz == "7461", "Kaposvár",
                                              postahivatal_fo_telepules),
          postahivatal_fo_telepules = if_else(irsz == "4337", "Jármi",
+                                             postahivatal_fo_telepules),
+         postahivatal_fo_telepules = if_else(irsz == "8960", "Lenti",
                                              postahivatal_fo_telepules)) %>%
   distinct(telepules, irsz, postahivatal_fo_telepules)
 
