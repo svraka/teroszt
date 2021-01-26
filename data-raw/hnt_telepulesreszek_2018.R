@@ -59,8 +59,10 @@ hnt_telepulesreszek_2018 <- hnt_telepulesreszek_2018 %>%
     telepulesresz_tavolsaga_kozponti_belterulettol = as.numeric(telepulesresz_tavolsaga_kozponti_belterulettol)
   ) %>%
   left_join(hnt_telepulesresz_jelleg, by = "telepulesresz_jelleg") %>%
-  mutate(telepulesresz_jelleg = factor(telepulesresz_jelleg_nev)) %>%
-  select(-telepulesresz_jelleg_nev) %>%
+  mutate(telepulesresz_jelleg_nev = fct_reorder(telepulesresz_jelleg_nev,
+                                                as.integer(telepulesresz_jelleg))) %>%
+  select(-telepulesresz_jelleg) %>%
+  rename(telepulesresz_jelleg = telepulesresz_jelleg_nev) %>%
   left_join(
     hnt_telepulesreszek_2018_kulterulet_jellege,
     by = "kulterulet_jellege"

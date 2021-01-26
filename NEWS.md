@@ -7,6 +7,10 @@
 
 ## Miscellaneous
 
+  * Set factor levels on code label types columns in `tsz_2018` and `nav_igazgatosagi_kodok` (e.g. `megye_nev` became a factor with levels ordered by values of `megye`) (#7).
+
+## Documentation
+
   * Translated all documentation to English in preparation for a future CRAN release.
   * Various documentation fixes.
 

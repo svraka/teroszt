@@ -1,4 +1,5 @@
 library(dplyr, warn.conflicts = FALSE)
+library(forcats)
 library(tidyr)
 library(readxl)
 
@@ -100,6 +101,20 @@ tsz_2018 <- tsz_2018 %>%
   arrange(jaras, jaras_nev) %>%
   fill(jaras_nev) %>%
   arrange(torzsszam)
+
+
+# Set factor levels for code labels. This keeps their commonly used
+# ordering based on their coding systems instead of simple
+# alphabetical sorting.
+
+tsz_2018 <- tsz_2018 %>%
+  mutate(megye_nev                  = fct_reorder(megye_nev, as.integer(megye)),
+         jogallas_2005_nev          = fct_reorder(jogallas_2005_nev,
+                                                  as.integer(jogallas_2005)),
+         statisztikai_nagyregio_nev = fct_reorder(statisztikai_nagyregio_nev,
+                                                  as.integer(statisztikai_nagyregio)),
+         regio_nev                  = fct_reorder(regio_nev, as.integer(regio)),
+         jaras_nev                  = fct_reorder(jaras_nev, as.integer(jaras)))
 
 
 # Save
