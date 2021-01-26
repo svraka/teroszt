@@ -1,8 +1,10 @@
-library(dplyr)
-library(forcats)
-library(sf)
-library(stringr)
-library(tibble)
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(forcats)
+  library(sf)
+  library(stringr)
+  library(tibble)
+})
 
 # Read OSM data downloaded from <https://data2.openstreetmap.hu/hatarok/>.
 
@@ -16,11 +18,11 @@ unzip("data-raw/kozighatarok.zip", exdir = tmp)
 kozighatarok <- list.files(file.path(tmp, "kozighatarok"),
                            pattern = "admin\\d+\\.shp",
                            full.names = TRUE) %>%
-  lapply(st_read) %>%
+  lapply(st_read, quiet = TRUE) %>%
   do.call(rbind, .) %>%
   remove_rownames() %>%
   # Convert to latlong, same what Eurostat uses
-  st_transform(crs = "+proj=longlat +datum=WGS84 +no_defs") %>%
+  st_transform(crs = "+proj=longlat +datum=WGS84 +no_defs", quiet = TRUE) %>%
   mutate_if(is.factor, as.character) %>%
   mutate(ADMIN_LEVE = str_pad(ADMIN_LEVE, width = 2, pad = "0"))
 
