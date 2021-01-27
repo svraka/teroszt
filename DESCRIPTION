@@ -21,7 +21,9 @@ Imports:
 Suggests:
     dplyr,
     forcats,
+    knitr,
     readxl,
+    rmarkdown,
     tidyr,
     usethis
 License: CC0
@@ -30,3 +32,4 @@ LazyData: true
 URL: https://github.com/svraka/teroszt
 BugReports: https://github.com/svraka/teroszt/issues
 RoxygenNote: 7.1.1
+VignetteBuilder: knitr

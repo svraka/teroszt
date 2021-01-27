@@ -1,0 +1,191 @@
+---
+title: "An introduction to `teroszt`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{An introduction to `teroszt`}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+library(teroszt)
+library(dplyr)
+library(tibble)
+```
+
+## Using settlement ID to postal code crosswalks
+
+Postal codes and territorial codes are two different systems with unique goals, which makes it difficult to create a crosswalk between them. `irsz_2018` (and in the future possibly newer versions of this table) in this package pulls in data from Magyar Posta, the Hungarian post office and from the Hungarian Central Statistical Office to link all possible postal codes to all settlements using a particular postal code. This is a complete crosswalk, where the correspondence between settlements and postal codes is not unique from either direction. Here are a few examples, where several settlements share a postal code.
+
+```{r irsz_2018}
+data(irsz_2018)
+
+irsz_2018 %>%
+  group_by(irsz) %>%
+  mutate(overlap = length(unique(torzsszam)) > 1) %>%
+  ungroup() %>%
+  filter(overlap == TRUE) %>%
+  select(-overlap)
+```
+
+Most overlaps happen in boroughs of settlements with low-populations in non-central, or even non--build-up areas. The `torzsszam_fo_telepules` column contains a unique settlement ID for each postal code belonging to the settlement most likely to be representative of that postal code. Classification is based on boroughs' population sizes. We can use the `get_irsz_tsz_crosswalk()` function to aggregate the full crosswalk table into a usable postal code to settlement ID crosswalk, where every postal code is linked to a unique settlement.
+
+```{r get-irsz-tsz-crosswalk-1}
+get_irsz_tsz_crosswalk("2018")
+```
+
+This can be then used to link various levels of territorial classifications:
+
+```{r get-irsz-tsz-crosswalk-2}
+get_irsz_tsz_crosswalk("2018") %>%
+  left_join(distinct(tsz_2018, torzsszam, megye, megye_nev, jaras, jaras_nev),
+            by = "torzsszam")
+```
+
+However, some misclassification is unavoidable. Postal codes are shared between nearby settlements but sometimes codes can cross district, county, and even regional boundaries. The following table shows the size of population misclassified when using `get_irsz_tsz_crosswalk()` to aggregate postal codes into different administrative divisions.
+
+```{r prep-hibak, include = FALSE}
+data(hnt_telepulesreszek_2018)
+
+nepesseg <- hnt_telepulesreszek_2018 %>%
+  group_by(torzsszam) %>%
+  summarise(nepesseg_telepules = sum(nepszamlalasi_lakonepesseg, na.rm = TRUE))
+
+misclass <- left_join(irsz_2018,
+                      hnt_telepulesreszek_2018 %>% select(-telepules),
+                      by = c("torzsszam", "irsz")) %>%
+  group_by(irsz, torzsszam, telepules, torzsszam_fo_telepules) %>%
+  summarise(nepesseg_telepulesresz = sum(nepszamlalasi_lakonepesseg, na.rm = TRUE),
+            .groups = "drop") %>%
+  left_join(tsz_2018 %>% distinct(torzsszam,
+                                 regio, regio_nev,
+                                 megye, megye_nev,
+                                 jaras, jaras_nev,
+                                 jogallas_2005, jogallas_2005_nev),
+            by = "torzsszam")
+
+hibak <- misclass %>%
+  group_by(irsz)
+hibak <- list(
+  `Region (régió)` = hibak %>%
+    mutate(problemas = length(unique(regio)) != 1) %>%
+    filter(problemas == TRUE) %>%
+    filter(torzsszam != torzsszam_fo_telepules) %>%
+    left_join(tsz_2018 %>% distinct(torzsszam, regio_fo_telepules = regio),
+              by = c("torzsszam_fo_telepules" = "torzsszam")) %>%
+    filter(regio != regio_fo_telepules) %>%
+    group_by(regio, regio_nev) %>%
+    summarise(nepesseg_hiba = sum(nepesseg_telepulesresz, na.rm = TRUE),
+              .groups = "drop") %>%
+    left_join(nepesseg %>%
+                left_join(tsz_2018 %>% distinct(torzsszam, regio),
+                          by = "torzsszam") %>%
+                group_by(regio) %>%
+                summarise(nepesseg_teljes = sum(nepesseg_telepules,
+                                                na.rm = TRUE),
+                          .groups = "drop"),
+              by = "regio"),
+  `County (megye)` = hibak %>%
+    mutate(problemas = length(unique(megye)) != 1) %>%
+    filter(problemas == TRUE) %>%
+    filter(torzsszam != torzsszam_fo_telepules) %>%
+    left_join(tsz_2018 %>% distinct(torzsszam, megye_fo_telepules = megye),
+              by = c("torzsszam_fo_telepules" = "torzsszam")) %>%
+    filter(megye != megye_fo_telepules) %>%
+    group_by(megye, megye_nev) %>%
+    summarise(nepesseg_hiba = sum(nepesseg_telepulesresz), .groups = "drop") %>%
+    left_join(nepesseg %>%
+                left_join(tsz_2018 %>% distinct(torzsszam, megye),
+                          by = "torzsszam") %>%
+                group_by(megye) %>%
+                summarise(nepesseg_teljes = sum(nepesseg_telepules),
+                          .groups = "drop"),
+              by = "megye"),
+  `District (járás)` = hibak %>%
+    mutate(problemas = length(unique(jaras)) != 1) %>%
+    filter(problemas == TRUE) %>%
+    filter(torzsszam != torzsszam_fo_telepules) %>%
+    left_join(tsz_2018 %>% distinct(torzsszam, jaras_fo_telepules = jaras),
+              by = c("torzsszam_fo_telepules" = "torzsszam")) %>%
+    filter(jaras != jaras_fo_telepules) %>%
+    group_by(jaras, jaras_nev) %>%
+    summarise(nepesseg_hiba = sum(nepesseg_telepulesresz), .groups = "drop") %>%
+    left_join(nepesseg %>%
+                left_join(tsz_2018 %>% distinct(torzsszam, jaras),
+                          by = "torzsszam") %>%
+                group_by(jaras) %>%
+                summarise(nepesseg_teljes = sum(nepesseg_telepules),
+                          .groups = "drop"),
+              by = "jaras"),
+  `Settlement (település)` = hibak %>%
+    mutate(problemas = length(unique(torzsszam)) != 1) %>%
+    filter(problemas == TRUE) %>%
+    filter(torzsszam != torzsszam_fo_telepules) %>%
+    group_by(torzsszam) %>%
+    summarise(nepesseg_hiba = sum(nepesseg_telepulesresz), .groups = "drop") %>%
+    left_join(nepesseg %>%
+                rename(nepesseg_teljes = nepesseg_telepules),
+              by = "torzsszam"),
+  `Settlement type` = hibak %>%
+    mutate(problemas = length(unique(jogallas_2005)) != 1) %>%
+    filter(problemas == TRUE) %>%
+    filter(torzsszam != torzsszam_fo_telepules) %>%
+    left_join(tsz_2018 %>%
+                distinct(torzsszam, jogallas_2005_fo_telepules = jogallas_2005),
+              by = c("torzsszam_fo_telepules" = "torzsszam")) %>%
+    filter(jogallas_2005 != jogallas_2005_fo_telepules) %>%
+    group_by(jogallas_2005, jogallas_2005_nev) %>%
+    summarise(nepesseg_hiba = sum(nepesseg_telepulesresz), .groups = "drop") %>%
+    left_join(nepesseg %>%
+                left_join(tsz_2018 %>% distinct(torzsszam, jogallas_2005),
+                          by = "torzsszam") %>%
+                group_by(jogallas_2005) %>%
+                summarise(nepesseg_teljes = sum(nepesseg_telepules),
+                          .groups = "drop"),
+              by = "jogallas_2005")
+)
+hibak <- lapply(hibak,
+                  function(x) {
+                    mutate(x,
+                           hiba_pct = round(100 * (nepesseg_hiba / nepesseg_teljes),
+                                            digits = 2)) %>%
+                      arrange(desc(hiba_pct))
+                  })
+```
+
+```{r t-hibak, echo = FALSE}
+hibak %>%
+  sapply(function(x) sum(x$nepesseg_hiba)) %>%
+  enframe(name = "aggregation", value = "misclassified") %>%
+  mutate(misclassified_pct = round(
+             100 * misclassified /
+               sum(hnt_telepulesreszek_2018$nepszamlalasi_lakonepesseg, na.rm = TRUE),
+             digits = 1
+           )) %>%
+  knitr::kable(col.names = c("Aggregation level",
+                             "Misclassified population",
+                             "Misclassified population<br>(% of census population)"),
+               format.args = list(big.mark = ","),
+               caption = "Misclassified population with `irsz_2018` by aggreagation type when using `get_irsz_tsz_crosswalk()` (based on population figures from the 2011 Census)")
+```
+
+The aggregated crosswalk table will also leave out settlements without a separate postal code. These tend to be small villages (see figure below), which are merged into nearby settlements. Merging can happen between different villages, but also between a village and a nearby town. This means some misclassification is possible when aggregating to settlement type (`jogallas_2005` in the `tsz_2018` table).
+
+```{r prep-kimaradt-telepules, include = FALSE}
+kimaradt_telepules <- hnt_telepulesreszek_2018 %>%
+  group_by(torzsszam, telepules) %>%
+  summarise(nepesseg = sum(nepszamlalasi_lakonepesseg, na.rm = TRUE),
+            .groups = "drop") %>%
+  anti_join(get_irsz_tsz_crosswalk("2018") %>% distinct(torzsszam),
+            by = "torzsszam") %>%
+  arrange(desc(nepesseg))
+```
+
+```{r p-kimaradt-telepules, echo = FALSE, fig.cap = "Distribution of settlement population for settlements omitted by `get_irsz_tsz_crosswalk(\"2018\")`"}
+hist(kimaradt_telepules$nepesseg, main = NULL, xlab = "Settlement size")
+```
