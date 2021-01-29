@@ -2,6 +2,7 @@ library(dplyr, warn.conflicts = FALSE)
 library(forcats)
 library(tidyr)
 library(readxl)
+library(stringr)
 
 
 # Main table
@@ -108,13 +109,18 @@ tsz_2018 <- tsz_2018 %>%
 # alphabetical sorting.
 
 tsz_2018 <- tsz_2018 %>%
-  mutate(megye_nev                  = fct_reorder(megye_nev, as.integer(megye)),
+  # Counties' codes are sorted alphabetically by name, so we need a helper
+  # column based on NUTS.
+  mutate(megye_sor = str_replace(nuts_16, "ZZZ", "999"),
+         megye_sor = as.integer(str_remove(megye_sor, "HU"))) %>%
+  mutate(megye_nev                  = fct_reorder(megye_nev, megye_sor),
          jogallas_2005_nev          = fct_reorder(jogallas_2005_nev,
                                                   as.integer(jogallas_2005)),
          statisztikai_nagyregio_nev = fct_reorder(statisztikai_nagyregio_nev,
                                                   as.integer(statisztikai_nagyregio)),
          regio_nev                  = fct_reorder(regio_nev, as.integer(regio)),
-         jaras_nev                  = fct_reorder(jaras_nev, as.integer(jaras)))
+         jaras_nev                  = fct_reorder(jaras_nev, as.integer(jaras))) %>%
+  select(-megye_sor)
 
 
 # Save
