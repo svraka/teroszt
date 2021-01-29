@@ -26,10 +26,16 @@ re_utca <- "[\\ \\.]u\\."
 irsz_posta_2018_utcajegyzekbol <- excel_sheets(irsz_posta_file) %>%
   str_subset(re_utca) %>%
   set_names() %>%
-  map_dfr(
-    ~ read_excel(irsz_posta_file, sheet = ., col_types = "text"),
-    .id = "telepules"
-  ) %>%
+  map(
+    ~ read_excel(irsz_posta_file, sheet = ., col_types = "text") %>%
+      # We need to do some gymnastics with column names. They differ for some
+      # cities (sometimes there's a period at the end) but we cannot set names
+      # using the `col_names` argument because the number of columns is not
+      # identical on all sheets. Budapest has an extra column for districts
+      # (which we need) and some other cities have empty columns at the end.
+      rename_with(~ str_remove(.x, "\\.$"), everything()),
+    ) %>%
+  bind_rows(.id = "telepules") %>%
   select(telepules, IRSZ, KER) %>%
   rename_with(.fn = tolower, .cols = everything()) %>%
   distinct() %>%

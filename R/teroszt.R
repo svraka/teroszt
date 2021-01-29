@@ -69,7 +69,7 @@ utils::globalVariables("irsz_2018")
 #' codes (\sQuote{\emph{ir}ányító\emph{sz}ám}) and the HCSO's
 #' settlement IDs.
 #'
-#' @format A tibble with 4,395 rows, which gives a crosswalk between
+#' @format A tibble with 4,405 rows, which gives a crosswalk between
 #'   all the valid postal codes in the Hungarian Postal Service's
 #'   database, and settlement IDs for all settlements that share a
 #'   postal code.
@@ -85,7 +85,7 @@ utils::globalVariables("irsz_2018")
 #'     and \link{tsz_2018} is ambiguous. Most overlaps happen in
 #'     parts of settlements with low-populations in non-central, or
 #'     even non--build-up areas. This column contains a unique settlement ID
-#'     for each postal code belonging to settlement most likely to be
+#'     for each postal code belonging to the settlement most likely to be
 #'     representative of that postal code. Classification is
 #'     based on borough types (preferring central over, non-central)
 #'     and the boroughs' population sizes.}
