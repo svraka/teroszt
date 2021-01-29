@@ -21,9 +21,12 @@ Imports:
 Suggests:
     dplyr,
     forcats,
+    here,
     knitr,
+    purrr,
     readxl,
     rmarkdown,
+    stringr,
     tidyr,
     usethis
 License: CC0
